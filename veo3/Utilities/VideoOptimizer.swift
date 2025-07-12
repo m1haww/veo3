@@ -24,7 +24,7 @@ class VideoOptimizer {
     
     // Compress video for app bundle
     static func compressVideoForBundle(inputURL: URL, outputURL: URL, completion: @escaping (Bool, Error?) -> Void) {
-        let asset = AVAsset(url: inputURL)
+        let asset = AVURLAsset(url: inputURL)
         
         guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality) else {
             completion(false, NSError(domain: "VideoOptimizer", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create export session"]))
@@ -35,14 +35,12 @@ class VideoOptimizer {
         exportSession.outputFileType = .mp4
         exportSession.shouldOptimizeForNetworkUse = true
         
-        exportSession.exportAsynchronously {
-            switch exportSession.status {
-            case .completed:
+        Task {
+            do {
+                try await exportSession.export(to: outputURL, as: .mp4)
                 completion(true, nil)
-            case .failed:
-                completion(false, exportSession.error)
-            default:
-                completion(false, NSError(domain: "VideoOptimizer", code: -2, userInfo: [NSLocalizedDescriptionKey: "Export failed"]))
+            } catch {
+                completion(false, error)
             }
         }
     }
