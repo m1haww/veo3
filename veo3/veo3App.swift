@@ -6,14 +6,64 @@
 //
 
 import SwiftUI
+import RevenueCat
+import RevenueCatUI
 
 @main
 struct veo3App: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var subscriptionManager = SubscriptionManager.shared
+    @State private var showPaywall = false
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(subscriptionManager)
+                .onAppear {
+                    // Optionally show paywall on first launch
+                    if !subscriptionManager.isSubscribed {
+                        // You can add a delay or check if it's first launch
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            showPaywall = true
+                        }
+                    }
+                }
+                .sheet(isPresented: $showPaywall) {
+                    PaywallView()
+                        .onPurchaseCompleted{ customerInfo in
+                            subscriptionManager.isSubscribed = customerInfo.entitlements.all["Pro"]?.isActive == true
+                            showPaywall = false
+                            subscriptionManager.customerInfo = customerInfo
+                            
+                            // Add credits based on purchase
+                            if let activeSubscription = customerInfo.activeSubscriptions.first {
+                                let creditsToAdd = getCreditsForProduct(activeSubscription)
+                                subscriptionManager.addCredits(creditsToAdd)
+                            }
+                        }
+                        .onRestoreCompleted { customerInfo in
+                            subscriptionManager.isSubscribed = customerInfo.entitlements.all["Pro"]?.isActive == true
+                            showPaywall = false
+                            subscriptionManager.customerInfo = customerInfo
+                        }
+                }
+        }
+    }
+    
+    private func getCreditsForProduct(_ productId: String) -> Int {
+        switch productId {
+        case "com.yourapp.credits_10":
+            return 10
+        case "com.yourapp.credits_50":
+            return 50
+        case "com.yourapp.credits_100":
+            return 100
+        case "com.yourapp.pro_monthly":
+            return 50  // Monthly subscription gives 50 credits
+        case "com.yourapp.pro_yearly":
+            return 500 // Yearly subscription gives 500 credits
+        default:
+            return 20  // Default credits for any purchase
         }
     }
 }
@@ -21,6 +71,11 @@ struct veo3App: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         configureAppearance()
+        
+        // Configure RevenueCat
+        Purchases.logLevel = .info
+        Purchases.configure(withAPIKey: Conts.shared.revenueCatApiKey)
+        
         return true
     }
     

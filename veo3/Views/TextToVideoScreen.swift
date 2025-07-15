@@ -20,6 +20,7 @@ struct TextToVideoScreen: View {
     @State private var showingVideoDetail = false
     @State private var progressTimer: Timer?
     @State private var progressStartTime: Date?
+    @ObservedObject private var subscriptionManager = SubscriptionManager.shared
     
     let promptSuggestions = [
         "A magical forest with glowing butterflies",
@@ -241,6 +242,32 @@ struct TextToVideoScreen: View {
                                 .padding(.horizontal)
                         }
                         
+                        if !subscriptionManager.isSubscribed {
+                            HStack {
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.yellow)
+                                Text("Credits: \(subscriptionManager.credits)")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(.white)
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    AppStateManager.shared.presentPaywall()
+                                }) {
+                                    Text("Get More")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(.purple)
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 6)
+                                        .background(Color.purple.opacity(0.2))
+                                        .cornerRadius(12)
+                                }
+                            }
+                            .padding(.horizontal)
+                            .padding(.bottom, 8)
+                        }
+                        
                         Button(action: generateVideo) {
                             HStack {
                                 if isGenerating {
@@ -264,8 +291,8 @@ struct TextToVideoScreen: View {
                                 )
                             )
                             .cornerRadius(16)
-                            .disabled(isGenerating || promptText.isEmpty)
-                            .opacity((isGenerating || promptText.isEmpty) ? 0.6 : 1)
+                            .disabled(isGenerating || promptText.isEmpty || (!subscriptionManager.isSubscribed && !subscriptionManager.hasCredits(1)))
+                            .opacity((isGenerating || promptText.isEmpty || (!subscriptionManager.isSubscribed && !subscriptionManager.hasCredits(1))) ? 0.6 : 1)
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 40)
@@ -318,6 +345,14 @@ struct TextToVideoScreen: View {
             return
         }
         
+        // Check if user has enough credits (1 credit per video)
+        let creditsRequired = 1
+        if !subscriptionManager.isSubscribed && !subscriptionManager.hasCredits(creditsRequired) {
+            // Show paywall if no subscription and no credits
+            AppStateManager.shared.presentPaywall()
+            return
+        }
+        
         isGenerating = true
         generationProgress = 0.0
         errorMessage = nil
@@ -336,6 +371,13 @@ struct TextToVideoScreen: View {
                     durationSeconds: selectedDuration,
                     generateAudio: generateAudio
                 )
+                
+                // Consume credits only if not subscribed and API call succeeded
+                if !subscriptionManager.isSubscribed {
+                    await MainActor.run {
+                        _ = subscriptionManager.useCredits(creditsRequired)
+                    }
+                }
                 
                 generationTaskId = operationName
                 

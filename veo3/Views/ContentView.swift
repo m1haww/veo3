@@ -1,8 +1,12 @@
 import SwiftUI
+import RevenueCat
+import RevenueCatUI
 
 struct ContentView: View {
     @State private var selectedTab = 0
     @State private var showCreateScreen = false
+    @ObservedObject private var subscriptionManager = SubscriptionManager.shared
+    @ObservedObject private var appStateManager = AppStateManager.shared
     
     var body: some View {
         ZStack {
@@ -68,6 +72,31 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showCreateScreen) {
             TextToVideoScreen()
+        }
+        .fullScreenCover(isPresented: $appStateManager.showPaywall) {
+            PaywallView()
+                .onPurchaseCompleted { customerInfo in
+                subscriptionManager.isSubscribed = customerInfo.entitlements.all["Pro"]?.isActive == true
+                appStateManager.showPaywall = false
+                subscriptionManager.customerInfo = customerInfo
+                
+                // Add credits based on purchase
+                if let activeSubscription = customerInfo.activeSubscriptions.first {
+                    let creditsToAdd = getCreditsForProduct(activeSubscription)
+                    subscriptionManager.addCredits(creditsToAdd)
+                }
+            }
+        }
+    }
+    
+    private func getCreditsForProduct(_ productId: String) -> Int {
+        switch productId {
+        case "veo3.yearly.com":
+            return 10
+        case "veo3.monthly.com":
+            return 50
+        default:
+            return 0
         }
     }
 }

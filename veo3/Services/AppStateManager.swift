@@ -9,6 +9,7 @@ class AppStateManager: ObservableObject {
     @Published var currentTab: Int = 0
     @Published var shouldNavigateToCreate: Bool = false
     @Published var generatedVideos: [GeneratedVideo] = []
+    @Published var showPaywall: Bool = false
     
     private let userDefaults = UserDefaults.standard
     private let generatedVideosKey = "GeneratedVideosHistory"
@@ -39,6 +40,10 @@ class AppStateManager: ObservableObject {
     
     func navigateToTab(_ index: Int) {
         currentTab = index
+    }
+    
+    func presentPaywall() {
+        showPaywall = true
     }
     
     func addGeneratedVideo(_ video: GeneratedVideo) {

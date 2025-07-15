@@ -1,12 +1,15 @@
 import SwiftUI
+import RevenueCat
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var subscriptionManager: SubscriptionManager
     @State private var notificationsEnabled = true
     @State private var autoplayEnabled = true
     @State private var hdQualityEnabled = false
     @State private var apiKey = ""
     @State private var showingAPIKeyAlert = false
+    @ObservedObject private var appStateManager = AppStateManager.shared
     
     var body: some View {
         ZStack {
@@ -14,6 +17,98 @@ struct SettingsView: View {
             
             ScrollView {
                 VStack(spacing: 24) {
+                    // Subscription Section
+                    VStack(spacing: 20) {
+                        SettingsSectionHeader(title: "Subscription", icon: "crown.fill")
+                        
+                        if subscriptionManager.isSubscribed {
+                            HStack {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.green)
+                                    .frame(width: 30)
+                                
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Premium Member")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.white)
+                                    
+                                    Text("All features unlocked")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.gray)
+                                }
+                                
+                                Spacer()
+                            }
+                            .padding()
+                            .background(
+                                LinearGradient(
+                                    colors: [Color.purple.opacity(0.2), Color.pink.opacity(0.2)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .cornerRadius(12)
+                        } else {
+                            Button(action: { appStateManager.presentPaywall() }) {
+                                HStack {
+                                    Image(systemName: "crown.fill")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.yellow)
+                                        .frame(width: 30)
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Upgrade to Premium")
+                                            .font(.system(size: 16, weight: .medium))
+                                            .foregroundColor(.white)
+                                        
+                                        Text("Unlock all features")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.gray)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.gray)
+                                }
+                                .padding()
+                                .background(
+                                    LinearGradient(
+                                        colors: [Color.purple.opacity(0.3), Color.pink.opacity(0.3)],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
+                                .cornerRadius(12)
+                            }
+                        }
+                        
+                        Button(action: {
+                            subscriptionManager.restorePurchases { success in
+                                // Handle restore result
+                            }
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.counterclockwise")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.blue)
+                                    .frame(width: 30)
+                                
+                                Text("Restore Purchases")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(.white)
+                                
+                                Spacer()
+                            }
+                            .padding()
+                            .background(Color.white.opacity(0.05))
+                            .cornerRadius(12)
+                        }
+                    }
+                    .padding(.horizontal)
+                    
                     VStack(spacing: 20) {
                         SettingsSectionHeader(title: "General", icon: "gear")
                         
