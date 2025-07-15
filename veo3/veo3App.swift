@@ -13,40 +13,31 @@ import RevenueCatUI
 struct veo3App: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var subscriptionManager = SubscriptionManager.shared
-    @State private var showPaywall = false
+    @State private var showOnboarding = true
+    @State private var hasCompletedOnboarding = false
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(subscriptionManager)
-                .onAppear {
-                    // Optionally show paywall on first launch
-                    if !subscriptionManager.isSubscribed {
-                        // You can add a delay or check if it's first launch
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            showPaywall = true
-                        }
-                    }
-                }
-                .sheet(isPresented: $showPaywall) {
-                    PaywallView()
-                        .onPurchaseCompleted{ customerInfo in
-                            subscriptionManager.isSubscribed = customerInfo.entitlements.all["Pro"]?.isActive == true
-                            showPaywall = false
-                            subscriptionManager.customerInfo = customerInfo
-                            
-                            // Add credits based on purchase
-                            if let activeSubscription = customerInfo.activeSubscriptions.first {
-                                let creditsToAdd = getCreditsForProduct(activeSubscription)
-                                subscriptionManager.addCredits(creditsToAdd)
+            Group {
+                if showOnboarding && !hasCompletedOnboarding && !subscriptionManager.isSubscribed {
+                    OnboardingView()
+                        .onAppear {
+                            // Check if user has seen onboarding before
+                            if UserDefaults.standard.bool(forKey: "hasSeenOnboarding") {
+                                hasCompletedOnboarding = true
+                                showOnboarding = false
                             }
                         }
-                        .onRestoreCompleted { customerInfo in
-                            subscriptionManager.isSubscribed = customerInfo.entitlements.all["Pro"]?.isActive == true
-                            showPaywall = false
-                            subscriptionManager.customerInfo = customerInfo
+                        .onDisappear {
+                            UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
+                            hasCompletedOnboarding = true
+                            showOnboarding = false
                         }
+                } else {
+                    ContentView()
+                        .environmentObject(subscriptionManager)
                 }
+            }
         }
     }
     

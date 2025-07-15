@@ -74,7 +74,7 @@ struct ContentView: View {
             TextToVideoScreen()
         }
         .fullScreenCover(isPresented: $appStateManager.showPaywall) {
-            PaywallView()
+            PaywallView(onPurchaseCompleted: nil, onRestoreCompleted: nil)
                 .onPurchaseCompleted { customerInfo in
                 subscriptionManager.isSubscribed = customerInfo.entitlements.all["Pro"]?.isActive == true
                 appStateManager.showPaywall = false
