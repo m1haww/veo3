@@ -1,104 +1,69 @@
 import SwiftUI
+import AVKit
 
 struct GalleryScreen: View {
-    @State private var selectedFilter = "All"
-    @State private var searchText = ""
+    @StateObject private var viewModel = GalleryViewModel()
     
-    let filters = ["All", "Recent", "Favorites", "Anime", "Superhero", "Effects"]
-    
-    let mockVideos = [
-        GeneratedVideo(
-            title: "Epic Warrior Battle",
-            prompt: "A warrior fighting a dragon in a mystical forest",
-            styleUsed: "Fantasy",
-            createdAt: Date(),
-            thumbnailName: "🐉"
-        ),
-        GeneratedVideo(
-            title: "Cyberpunk City",
-            prompt: "Neon-lit futuristic city at night",
-            styleUsed: "Cyberpunk",
-            createdAt: Date().addingTimeInterval(-3600),
-            thumbnailName: "🌃"
-        ),
-        GeneratedVideo(
-            title: "Anime Transformation",
-            prompt: "Transform into anime character with special powers",
-            styleUsed: "Anime Style",
-            createdAt: Date().addingTimeInterval(-7200),
-            thumbnailName: "⚡"
-        ),
-        GeneratedVideo(
-            title: "Superhero Mode",
-            prompt: "Become Batman with dark knight effects",
-            styleUsed: "Superhero",
-            createdAt: Date().addingTimeInterval(-10800),
-            thumbnailName: "🦇"
-        ),
-        GeneratedVideo(
-            title: "Magical Effects",
-            prompt: "Add fire and explosion effects to video",
-            styleUsed: "Effects",
-            createdAt: Date().addingTimeInterval(-14400),
-            thumbnailName: "🔥"
-        ),
-        GeneratedVideo(
-            title: "Watercolor Art",
-            prompt: "Convert video to beautiful watercolor painting",
-            styleUsed: "Watercolor",
-            createdAt: Date().addingTimeInterval(-18000),
-            thumbnailName: "🎨"
-        )
-    ]
-    
-    var filteredVideos: [GeneratedVideo] {
-        let filtered = selectedFilter == "All" ? mockVideos : mockVideos.filter { 
-            $0.styleUsed.localizedCaseInsensitiveContains(selectedFilter) 
-        }
-        
-        if searchText.isEmpty {
-            return filtered
-        } else {
-            return filtered.filter { 
-                $0.title.localizedCaseInsensitiveContains(searchText) ||
-                $0.prompt.localizedCaseInsensitiveContains(searchText)
-            }
-        }
-    }
+    let filters = ["All", "Recent", "Completed", "Pending", "Failed"]
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        ForEach(filters, id: \.self) { filter in
-                            FilterChip(
-                                title: filter,
-                                isSelected: selectedFilter == filter,
-                                action: { selectedFilter = filter }
-                            )
-                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
-                }
-                .background(Color.gray.opacity(0.1))
+            ZStack {
+                Color.black.ignoresSafeArea()
                 
-                if filteredVideos.isEmpty {
-                    EmptyGalleryView()
-                } else {
-                    ScrollView {
-                        LazyVStack(spacing: 16) {
-                            ForEach(filteredVideos) { video in
-                                VideoCard(video: video)
+                VStack(spacing: 0) {
+                    Text("My Creations")
+                        .font(.system(size: 34, weight: .bold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                        .padding(.top, 60)
+                        .padding(.bottom, 13)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 9) {
+                            ForEach(filters, id: \.self) { filter in
+                                FilterChip(
+                                    title: filter,
+                                    isSelected: viewModel.selectedFilter == filter,
+                                    action: { viewModel.selectedFilter = filter }
+                                )
                             }
                         }
-                        .padding()
+                        .padding(.horizontal)
+                        .padding(.vertical, 3)
+                    }
+                    .frame(height: 40)
+                    
+                    ScrollView(.vertical, showsIndicators: false) {
+                        LazyVStack(spacing: 20) {
+                            if viewModel.filteredVideos.isEmpty {
+                                EmptyGalleryView()
+                            } else {
+                                ForEach(viewModel.filteredVideos) { video in
+                                    GeneratedVideoCard(video: video)
+                                        .padding(.horizontal, 20)
+                                        .onTapGesture {
+                                            viewModel.selectVideo(video)
+                                        }
+                                }
+                            }
+                        }
+                        .padding(.top, 20)
+                        .padding(.bottom, 40)
                     }
                 }
             }
-            .navigationTitle("My Videos")
-            .searchable(text: $searchText, prompt: "Search videos...")
+            .ignoresSafeArea(edges: .top)
+        }
+        .navigationBarHidden(true)
+        .fullScreenCover(isPresented: $viewModel.showingVideoDetail) {
+            if let video = viewModel.selectedVideo {
+                GeneratedVideoDetailView(video: video)
+                    .onDisappear {
+                        viewModel.dismissVideoDetail()
+                    }
+            }
         }
     }
 }
@@ -111,62 +76,119 @@ struct FilterChip: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.subheadline)
-                .fontWeight(.medium)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(isSelected ? Color.purple : Color.gray.opacity(0.2))
-                .foregroundColor(isSelected ? .white : .primary)
-                .cornerRadius(20)
+                .font(.system(size: 14, weight: .medium))
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(
+                    isSelected ?
+                    LinearGradient(
+                        colors: [Color.purple, Color.pink],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    ) :
+                        LinearGradient(
+                            colors: [Color.white.opacity(0.1), Color.white.opacity(0.05)],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                )
+                .foregroundColor(.white)
+                .cornerRadius(25)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 25)
+                        .stroke(Color.white.opacity(isSelected ? 0 : 0.2), lineWidth: 1)
+                )
         }
     }
 }
 
-struct VideoCard: View {
+struct GeneratedVideoCard: View {
     let video: GeneratedVideo
-    @State private var isFavorite = false
     
     var body: some View {
-        HStack(spacing: 16) {
-            Text(video.thumbnailName)
-                .font(.system(size: 40))
-                .frame(width: 80, height: 80)
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(12)
-            
-            VStack(alignment: .leading, spacing: 6) {
-                Text(video.title)
-                    .font(.headline)
-                    .lineLimit(1)
-                
-                Text(video.prompt)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
-                
-                HStack {
-                    Label(video.styleUsed, systemImage: "paintbrush.fill")
-                        .font(.caption)
-                        .foregroundColor(.purple)
-                    
-                    Spacer()
-                    
-                    Text(timeAgo(from: video.createdAt))
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+        VStack(alignment: .leading, spacing: 0) {
+            ZStack {
+                if video.status == .completed {
+                    StoredVideoThumbnailView(video: video)
+                        .frame(height: 200)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .overlay(
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.black.opacity(0.3))
+                                
+                                Image(systemName: "play.circle.fill")
+                                    .font(.system(size: 50))
+                                    .foregroundColor(.white)
+                                    .shadow(color: .black.opacity(0.5), radius: 10, x: 0, y: 2)
+                            }
+                        )
+                } else {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.white.opacity(0.05))
+                        .frame(height: 200)
+                        .overlay(
+                            VStack(spacing: 12) {
+                                Image(systemName: video.status.iconName)
+                                    .font(.system(size: 40))
+                                    .foregroundColor(statusColor(video.status))
+                                
+                                Text(video.status.displayName)
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(.white)
+                            }
+                        )
                 }
             }
             
-            Button(action: { isFavorite.toggle() }) {
-                Image(systemName: isFavorite ? "heart.fill" : "heart")
-                    .foregroundColor(isFavorite ? .red : .gray)
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Text(video.category)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                    
+                    Spacer()
+                    
+                    Text(timeAgo(from: video.date))
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+                
+                if let prompt = video.prompt {
+                    Text(prompt)
+                        .font(.system(size: 14))
+                        .foregroundColor(.gray)
+                        .lineLimit(2)
+                }
+                
+                HStack {
+                    HStack(spacing: 4) {
+                        Circle()
+                            .fill(statusColor(video.status))
+                            .frame(width: 8, height: 8)
+                        Text(video.status.displayName)
+                            .font(.caption)
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .background(Color.white.opacity(0.1))
+                    .cornerRadius(12)
+                    
+                    Spacer()
+                }
             }
+            .padding(16)
         }
-        .padding()
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white)
-                .shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
+                .fill(Color.white.opacity(0.05))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.white.opacity(0.1), lineWidth: 1)
         )
     }
     
@@ -182,29 +204,138 @@ struct VideoCard: View {
             return "\(hours / 24)d ago"
         }
     }
+    
+    func statusColor(_ status: GeneratedVideoStatus) -> Color {
+        switch status {
+        case .pending:
+            return .orange
+        case .completed:
+            return .green
+        case .failed:
+            return .red
+        }
+    }
 }
 
 struct EmptyGalleryView: View {
     var body: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "video.slash")
-                .font(.system(size: 60))
-                .foregroundColor(.gray)
+        VStack(spacing: 32) {
+            Spacer()
             
-            Text("No Videos Yet")
-                .font(.title2)
-                .fontWeight(.semibold)
-            
-            Text("Create your first AI video to see it here")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+            VStack(spacing: 24) {
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Color.purple.opacity(0.3),
+                                    Color.pink.opacity(0.3),
+                                    Color.blue.opacity(0.3)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 140, height: 140)
+                        .blur(radius: 20)
+                    
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.purple.opacity(0.1), Color.pink.opacity(0.1)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 120, height: 120)
+                    
+                    Image(systemName: "sparkles.tv")
+                        .font(.system(size: 50))
+                        .foregroundColor(.white)
+                }
+                
+                VStack(spacing: 16) {
+                    Text("No Videos Yet")
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(.white)
+                    
+                    Text("Start creating amazing AI videos with cutting-edge models")
+                        .font(.system(size: 17))
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                }
+                
+                Button(action: {
+                    // TODO: show paywall
+                }) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "crown.fill")
+                            .font(.system(size: 20))
+                        
+                        Text("Get Pro")
+                            .font(.system(size: 18, weight: .semibold))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 32)
+                    .padding(.vertical, 16)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.purple, Color.pink],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .cornerRadius(30)
+                    .shadow(color: Color.purple.opacity(0.5), radius: 20, x: 0, y: 10)
+                }
+                
+                VStack(spacing: 16) {
+                    FeatureRow(icon: "checkmark.circle.fill", text: "4K Resolution", color: .green)
+                    FeatureRow(icon: "bolt.circle.fill", text: "Priority Processing", color: .yellow)
+                    FeatureRow(icon: "infinity.circle.fill", text: "Unlimited Storage", color: .blue)
+                }
+                .padding(.top, 8)
+            }
+            .padding(20)
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color.white.opacity(0.05))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 24)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [
+                                        Color.white.opacity(0.2),
+                                        Color.white.opacity(0.05)
+                                    ],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 1
+                            )
+                    )
+            )
+            .padding(.horizontal, 20)
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
-#Preview {
-    GalleryScreen()
+struct FeatureRow: View {
+    let icon: String
+    let text: String
+    let color: Color
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.system(size: 20))
+                .foregroundColor(color)
+            
+            Text(text)
+                .font(.system(size: 16))
+                .foregroundColor(.white.opacity(0.8))
+            
+            Spacer()
+        }
+    }
 }

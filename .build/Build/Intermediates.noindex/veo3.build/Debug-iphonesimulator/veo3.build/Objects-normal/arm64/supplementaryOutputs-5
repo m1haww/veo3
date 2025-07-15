@@ -1,0 +1,18 @@
+"/Users/petrugrigor/Documents/veo3/veo3/Views/HomeScreen.swift":
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.d"
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.swiftdeps"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.swiftconstvalues"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.dia"
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.o"
+"/Users/petrugrigor/Documents/veo3/veo3/Views/ImagePicker.swift":
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.d"
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.swiftdeps"
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.o"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.dia"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.swiftconstvalues"
+"/Users/petrugrigor/Documents/veo3/veo3/Config/APIConfig.swift":
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.swiftdeps"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.dia"
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.d"
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.o"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.swiftconstvalues"

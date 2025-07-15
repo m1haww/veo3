@@ -1,0 +1,18 @@
+"/Users/petrugrigor/Documents/veo3/veo3/ContentView.swift":
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.swiftconstvalues"
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.o"
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.d"
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.swiftdeps"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.dia"
+"/Users/petrugrigor/Documents/veo3/veo3/Views/ActiveTasksView.swift":
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.swiftdeps"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.dia"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.swiftconstvalues"
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.o"
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.d"
+"/Users/petrugrigor/Documents/veo3/veo3/Views/CustomTabBar.swift":
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.o"
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.d"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.dia"
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.swiftdeps"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.swiftconstvalues"

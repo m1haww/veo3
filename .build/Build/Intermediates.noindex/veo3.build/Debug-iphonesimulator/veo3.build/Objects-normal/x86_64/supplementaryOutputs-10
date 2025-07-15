@@ -1,0 +1,18 @@
+"/Users/petrugrigor/Documents/veo3/veo3/Models/VideoPreset.swift":
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/VideoPreset.o"
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/VideoPreset.swiftdeps"
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/VideoPreset.d"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/VideoPreset.swiftconstvalues"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/VideoPreset.dia"
+"/Users/petrugrigor/Documents/veo3/veo3/Models/VideoStyle.swift":
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/VideoStyle.dia"
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/VideoStyle.swiftdeps"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/VideoStyle.swiftconstvalues"
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/VideoStyle.d"
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/VideoStyle.o"
+"/Users/petrugrigor/Documents/veo3/veo3/Views/FullWidthVideoPlayer.swift":
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/FullWidthVideoPlayer.swiftdeps"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/FullWidthVideoPlayer.swiftconstvalues"
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/FullWidthVideoPlayer.d"
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/FullWidthVideoPlayer.o"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/FullWidthVideoPlayer.dia"

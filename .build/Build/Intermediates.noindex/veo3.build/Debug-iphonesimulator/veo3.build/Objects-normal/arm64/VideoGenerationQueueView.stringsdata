@@ -1,0 +1,48 @@
+{
+  "source": "/Users/petrugrigor/Documents/veo3/veo3/Views/VideoGenerationQueueView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Creating Your Video",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 77
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 112
+        }
+      },
+      {
+        "comment": "",
+        "key": "Video generation typically takes 30-60 seconds",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 128
+        }
+      },
+      {
+        "comment": "",
+        "key": "Please keep the app open",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 123
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel Generation",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 136
+        }
+      }
+    ]
+  },
+  "version": 1
+}

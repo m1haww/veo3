@@ -1,0 +1,18 @@
+"/Users/petrugrigor/Documents/veo3/veo3/Views/ImagePicker.swift":
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/ImagePicker.d"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/ImagePicker.swiftconstvalues"
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/ImagePicker.swiftdeps"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/ImagePicker.dia"
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/ImagePicker.o"
+"/Users/petrugrigor/Documents/veo3/veo3/Config/APIConfig.swift":
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/APIConfig.swiftdeps"
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/APIConfig.d"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/APIConfig.swiftconstvalues"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/APIConfig.dia"
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/APIConfig.o"
+"/Users/petrugrigor/Documents/veo3/veo3/Views/HomeScreen.swift":
+  object: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/HomeScreen.o"
+  dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/HomeScreen.d"
+  const-values: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/HomeScreen.swiftconstvalues"
+  swift-dependencies: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/HomeScreen.swiftdeps"
+  diagnostics: "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/x86_64/HomeScreen.dia"

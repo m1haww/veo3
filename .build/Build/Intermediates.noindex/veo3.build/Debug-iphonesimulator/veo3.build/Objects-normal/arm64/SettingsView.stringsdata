@@ -1,0 +1,112 @@
+{
+  "source": "/Users/petrugrigor/Documents/veo3/veo3/Views/SettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Settings",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 127
+        }
+      },
+      {
+        "comment": "",
+        "key": "API Key",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 137
+        }
+      },
+      {
+        "comment": "",
+        "key": "Runway API Key",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 57
+        }
+      },
+      {
+        "comment": "",
+        "key": "Not configured",
+        "location": {
+          "startingColumn": 59,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "••••••••",
+        "location": {
+          "startingColumn": 78,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "Made with ❤️ by Veo Team",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 113
+        }
+      },
+      {
+        "comment": "",
+        "key": "© 2024 Veo. All rights reserved.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 117
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 131
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enter your Runway API key",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 138
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 139
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 142
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enter your Runway API key to enable video generation",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 144
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 195
+        }
+      }
+    ]
+  },
+  "version": 1
+}

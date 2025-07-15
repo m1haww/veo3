@@ -1,0 +1,48 @@
+{
+  "source": "/Users/petrugrigor/Documents/veo3/veo3/Views/GalleryScreen.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "My Creations",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 108
+        }
+      },
+      {
+        "comment": "",
+        "key": "Search videos...",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 116
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld fps",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 271
+        }
+      },
+      {
+        "comment": "",
+        "key": "No Videos Yet",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 354
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start creating amazing AI videos\nwith cutting-edge models",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 358
+        }
+      }
+    ]
+  },
+  "version": 1
+}

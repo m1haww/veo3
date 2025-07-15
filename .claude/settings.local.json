@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(find:*)",
+      "Bash(chmod:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": []
+  }
+}

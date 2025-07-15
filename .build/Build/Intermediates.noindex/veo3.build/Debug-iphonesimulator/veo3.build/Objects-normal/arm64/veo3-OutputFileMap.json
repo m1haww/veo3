@@ -1,0 +1,268 @@
+{
+  "" : {
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3-master.dia",
+    "emit-module-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3-master-emit-module.dia",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3-master.swiftdeps"
+  },
+  "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Config/APIConfig.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/APIConfig~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/ContentView.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Models/RunwayModels.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayModels.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayModels.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayModels.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayModels.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayModels.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayModels.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayModels.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayModels~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Models/VideoPreset.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPreset.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPreset.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPreset.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPreset.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPreset.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPreset.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPreset.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPreset~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Models/VideoStyle.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoStyle.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoStyle.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoStyle.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoStyle.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoStyle.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoStyle.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoStyle.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoStyle~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Services/AppStateManager.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/AppStateManager.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/AppStateManager.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/AppStateManager.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/AppStateManager.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/AppStateManager.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/AppStateManager.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/AppStateManager.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/AppStateManager~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Services/RunwayAPIService.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayAPIService.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayAPIService.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayAPIService.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayAPIService.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayAPIService.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayAPIService.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayAPIService.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayAPIService~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Services/RunwayTaskManager.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayTaskManager.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayTaskManager.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayTaskManager.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayTaskManager.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayTaskManager.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayTaskManager.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayTaskManager.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/RunwayTaskManager~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Utilities/Consts.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/Consts.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/Consts.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/Consts.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/Consts.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/Consts.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/Consts.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/Consts.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/Consts~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Utilities/VideoOptimizer.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoOptimizer.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoOptimizer.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoOptimizer.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoOptimizer.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoOptimizer.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoOptimizer.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoOptimizer.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoOptimizer~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/ActiveTasksView.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ActiveTasksView~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/CustomTabBar.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/CustomTabBar~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/FullWidthVideoPlayer.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/FullWidthVideoPlayer.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/FullWidthVideoPlayer.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/FullWidthVideoPlayer.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/FullWidthVideoPlayer.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/FullWidthVideoPlayer.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/FullWidthVideoPlayer.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/FullWidthVideoPlayer.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/FullWidthVideoPlayer~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/GalleryScreen.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GalleryScreen.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GalleryScreen.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GalleryScreen.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GalleryScreen.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GalleryScreen.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GalleryScreen.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GalleryScreen.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/GalleryScreen~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/HomeScreen.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/HomeScreen~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/ImagePicker.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/ImagePicker~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/LoopingVideoPlayer.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LoopingVideoPlayer.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LoopingVideoPlayer.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LoopingVideoPlayer.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LoopingVideoPlayer.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LoopingVideoPlayer.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LoopingVideoPlayer.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LoopingVideoPlayer.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LoopingVideoPlayer~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/LottieView.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LottieView.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LottieView.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LottieView.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LottieView.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LottieView.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LottieView.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LottieView.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/LottieView~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/OptimizedVideoPlayer.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/OptimizedVideoPlayer.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/OptimizedVideoPlayer.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/OptimizedVideoPlayer.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/OptimizedVideoPlayer.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/OptimizedVideoPlayer.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/OptimizedVideoPlayer.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/OptimizedVideoPlayer.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/OptimizedVideoPlayer~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/SettingsView.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/SettingsView.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/SettingsView.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/SettingsView.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/SettingsView.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/SettingsView.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/SettingsView.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/SettingsView.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/SettingsView~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/TextToVideoScreen.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/TextToVideoScreen.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/TextToVideoScreen.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/TextToVideoScreen.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/TextToVideoScreen.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/TextToVideoScreen.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/TextToVideoScreen.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/TextToVideoScreen.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/TextToVideoScreen~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/VideoGenerationQueueView.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoGenerationQueueView.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoGenerationQueueView.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoGenerationQueueView.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoGenerationQueueView.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoGenerationQueueView.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoGenerationQueueView.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoGenerationQueueView.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoGenerationQueueView~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/VideoPlayerView.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPlayerView.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPlayerView.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPlayerView.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPlayerView.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPlayerView.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPlayerView.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPlayerView.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoPlayerView~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/Views/VideoThumbnailCard.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoThumbnailCard.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoThumbnailCard.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoThumbnailCard.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoThumbnailCard.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoThumbnailCard.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoThumbnailCard.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoThumbnailCard.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/VideoThumbnailCard~partial.swiftmodule"
+  },
+  "/Users/petrugrigor/Documents/veo3/veo3/veo3App.swift" : {
+    "const-values" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3App.swiftconstvalues",
+    "dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3App.d",
+    "diagnostics" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3App.dia",
+    "index-unit-output-path" : "/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3App.o",
+    "llvm-bc" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3App.bc",
+    "object" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3App.o",
+    "swift-dependencies" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3App.swiftdeps",
+    "swiftmodule" : "/Users/petrugrigor/Documents/veo3/.build/Build/Intermediates.noindex/veo3.build/Debug-iphonesimulator/veo3.build/Objects-normal/arm64/veo3App~partial.swiftmodule"
+  }
+}

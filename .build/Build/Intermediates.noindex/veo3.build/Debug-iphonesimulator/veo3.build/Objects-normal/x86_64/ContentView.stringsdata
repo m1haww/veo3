@@ -1,0 +1,24 @@
+{
+  "source": "/Users/petrugrigor/Documents/veo3/veo3/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Home",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 15
+        }
+      },
+      {
+        "comment": "",
+        "key": "Gallery",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 30
+        }
+      }
+    ]
+  },
+  "version": 1
+}

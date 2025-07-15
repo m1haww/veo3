@@ -17,6 +17,9 @@ struct ContentView: View {
                 GalleryScreen()
                     .tag(2)
             }
+            .onChange(of: AppStateManager.shared.currentTab) { newValue in
+                selectedTab = newValue
+            }
             
             // Custom Tab Bar
             VStack {
@@ -24,7 +27,7 @@ struct ContentView: View {
                 
                 HStack(spacing: 0) {
                     TabBarButton(
-                        icon: "sparkles",
+                        icon: "wand.and.stars",
                         title: "AI Video",
                         isSelected: selectedTab == 0,
                         action: { selectedTab = 0 }
