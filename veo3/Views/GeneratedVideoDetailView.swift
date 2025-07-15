@@ -72,6 +72,7 @@ struct GeneratedVideoDetailView: View {
                     }
                 }
                 .padding()
+                .padding(.top)
                 
                 // Video player or placeholder
                 ZStack {
