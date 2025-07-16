@@ -2,16 +2,28 @@ import SwiftUI
 import RevenueCat
 import RevenueCatUI
 
+struct SizeClassPreferenceKey: PreferenceKey {
+    static var defaultValue: UserInterfaceSizeClass? = nil
+    
+    static func reduce(value: inout UserInterfaceSizeClass?, nextValue: () -> UserInterfaceSizeClass?) {
+        value = nextValue() ?? value
+    }
+}
+
 struct ContentView: View {
     @State private var selectedTab = 0
     @State private var showCreateScreen = false
     @ObservedObject private var subscriptionManager = SubscriptionManager.shared
     @ObservedObject private var appStateManager = AppStateManager.shared
     
+    @State private var cachedSizeClass: UserInterfaceSizeClass = .compact
+
+    
     var body: some View {
         ZStack {
             TabView(selection: $selectedTab) {
                 HomeScreen()
+                    .environment(\.horizontalSizeClass, cachedSizeClass)
                     .tabItem {
                         VStack {
                             Image(systemName: "wand.and.stars.inverse")
@@ -23,10 +35,18 @@ struct ContentView: View {
                     .tag(0)
                 
                 Color.clear
-                    .tabItem {}
+                        .background(
+                            GeometryReader { _ in
+                                Color.clear
+                                    .preference(key: SizeClassPreferenceKey.self,
+                                                value: Environment(\.horizontalSizeClass).wrappedValue)
+                            }
+                        )
+                        .tabItem {}
                     .tag(2)
                 
                 GalleryScreen()
+                    .environment(\.horizontalSizeClass, cachedSizeClass)
                     .tabItem {
                         VStack {
                             Image(systemName: "photo.fill")
@@ -38,9 +58,12 @@ struct ContentView: View {
                     .tag(1)
             }
             .accentColor(.white)
-            .onAppear {
-                UITabBar.appearance().barTintColor = .black
-                UITabBar.appearance().unselectedItemTintColor = UIColor(white: 0.5, alpha: 1.0)
+            .tabViewStyle(DefaultTabViewStyle())
+            .onPreferenceChange(SizeClassPreferenceKey.self) { value in
+                cachedSizeClass = value ?? .compact
+            }
+            .transformEnvironment(\.horizontalSizeClass) { sizeClass in
+                sizeClass = .compact
             }
             
             VStack {

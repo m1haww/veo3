@@ -1,0 +1,6 @@
+framework module Pods_veo3 {
+  umbrella header "Pods-veo3-umbrella.h"
+
+  export *
+  module * { export * }
+}
