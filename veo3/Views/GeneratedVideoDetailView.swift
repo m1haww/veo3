@@ -31,7 +31,6 @@ struct GeneratedVideoDetailView: View {
                     
                     Spacer()
                     
-                    // Status badge
                     HStack(spacing: 6) {
                         Circle()
                             .fill(statusColor)
@@ -48,7 +47,6 @@ struct GeneratedVideoDetailView: View {
                     
                     Spacer()
                     
-                    // Actions
                     HStack(spacing: 12) {
                         if video.status == .completed {
                             Button(action: { showShareSheet = true }) {

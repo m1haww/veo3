@@ -153,7 +153,7 @@ struct TextToVideoScreen: View {
                                 .padding(.horizontal)
                             
                             HStack(spacing: 12) {
-                                ForEach([VeoAspectRatio.landscape16x9, .portrait9x16], id: \.self) { ratio in
+                                ForEach([VeoAspectRatio.landscape16x9], id: \.self) { ratio in
                                     Button(action: { selectedVeoRatio = ratio }) {
                                         VStack(spacing: 8) {
                                             RoundedRectangle(cornerRadius: 8)
@@ -242,18 +242,21 @@ struct TextToVideoScreen: View {
                                 .padding(.horizontal)
                         }
                         
-                        if !subscriptionManager.isSubscribed {
-                            HStack {
-                                Image(systemName: "star.fill")
-                                    .foregroundColor(.yellow)
-                                Text("Credits: \(subscriptionManager.credits)")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.white)
-                                
-                                Spacer()
-                                
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                            Text("Credits needed: \(generateAudio ? 5 : 4)")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.white)
+                            
+                            Spacer()
+                            
+                            if !subscriptionManager.hasCredits(generateAudio ? 5 : 4) {
                                 Button(action: {
-                                    AppStateManager.shared.presentPaywall()
+                                    dismiss()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        AppStateManager.shared.presentPaywall()
+                                    }
                                 }) {
                                     Text("Get More")
                                         .font(.system(size: 14, weight: .medium))
@@ -264,9 +267,9 @@ struct TextToVideoScreen: View {
                                         .cornerRadius(12)
                                 }
                             }
-                            .padding(.horizontal)
-                            .padding(.bottom, 8)
                         }
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
                         
                         Button(action: generateVideo) {
                             HStack {
@@ -291,8 +294,8 @@ struct TextToVideoScreen: View {
                                 )
                             )
                             .cornerRadius(16)
-                            .disabled(isGenerating || promptText.isEmpty || (!subscriptionManager.isSubscribed && !subscriptionManager.hasCredits(1)))
-                            .opacity((isGenerating || promptText.isEmpty || (!subscriptionManager.isSubscribed && !subscriptionManager.hasCredits(1))) ? 0.6 : 1)
+                            .disabled(isGenerating || promptText.isEmpty || !subscriptionManager.hasCredits(generateAudio ? 5 : 4))
+                            .opacity((isGenerating || promptText.isEmpty || !subscriptionManager.hasCredits(generateAudio ? 5 : 4)) ? 0.6 : 1)
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 40)
@@ -324,7 +327,6 @@ struct TextToVideoScreen: View {
             if let video = completedVideo {
                 GeneratedVideoDetailView(video: video)
                     .onDisappear {
-                        // Dismiss the TextToVideoScreen after viewing the detail
                         dismiss()
                     }
             }
@@ -345,11 +347,12 @@ struct TextToVideoScreen: View {
             return
         }
         
-        // Check if user has enough credits (1 credit per video)
-        let creditsRequired = 1
-        if !subscriptionManager.isSubscribed && !subscriptionManager.hasCredits(creditsRequired) {
-            // Show paywall if no subscription and no credits
-            AppStateManager.shared.presentPaywall()
+        let creditsRequired = generateAudio ? 5 : 4
+        if !subscriptionManager.hasCredits(creditsRequired) {
+            dismiss()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                AppStateManager.shared.presentPaywall()
+            }
             return
         }
         
@@ -372,12 +375,6 @@ struct TextToVideoScreen: View {
                     generateAudio: generateAudio
                 )
                 
-                // Consume credits only if not subscribed and API call succeeded
-                if !subscriptionManager.isSubscribed {
-                    await MainActor.run {
-                        _ = subscriptionManager.useCredits(creditsRequired)
-                    }
-                }
                 
                 generationTaskId = operationName
                 
@@ -391,7 +388,7 @@ struct TextToVideoScreen: View {
                 )
                 AppStateManager.shared.addGeneratedVideo(pendingVideo)
                 
-                await pollForVideoCompletion(operationName: operationName, category: category, pendingVideoId: pendingVideo.id)
+                await pollForVideoCompletion(operationName: operationName, category: category, pendingVideoId: pendingVideo.id, creditsRequired: creditsRequired)
             } catch {
                 await MainActor.run {
                     self.isGenerating = false
@@ -399,7 +396,6 @@ struct TextToVideoScreen: View {
                     self.generationProgress = 0.0
                     self.stopProgressTimer()
                     
-                    // Delay showing error alert to ensure popup closes first
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.errorMessage = error.localizedDescription
                     }
@@ -451,12 +447,7 @@ struct TextToVideoScreen: View {
     func loadSelectedPreset() {
         if let preset = AppStateManager.shared.selectedVideoPreset {
             promptText = preset.prompt
-            
-            if preset.isPortrait {
-                selectedVeoRatio = .portrait9x16
-            } else {
-                selectedVeoRatio = .landscape16x9
-            }
+            selectedVeoRatio = .landscape16x9
             
             if let url = Bundle.main.url(forResource: preset.videoAssetName, withExtension: "mp4") {
                 let asset = AVAsset(url: url)
@@ -473,7 +464,6 @@ struct TextToVideoScreen: View {
         }
         
         if status.done == true {
-            // Check for error first
             if status.error != nil {
                 return .failed
             } else if status.response?.videos?.isEmpty == false {
@@ -492,21 +482,15 @@ struct TextToVideoScreen: View {
             let imageGenerator = AVAssetImageGenerator(asset: asset)
             imageGenerator.appliesPreferredTrackTransform = true
             
-            // Update selected preset
             if let preset = VideoPreset.preset(for: videoName) {
                 appState.selectedVideoPreset = preset
                 promptText = preset.prompt
-                
-                if preset.isPortrait {
-                    selectedVeoRatio = .portrait9x16
-                } else {
-                    selectedVeoRatio = .landscape16x9
-                }
+                selectedVeoRatio = .landscape16x9
             }
         }
     }
     
-    func pollForVideoCompletion(operationName: String, category: String, pendingVideoId: UUID) async {
+    func pollForVideoCompletion(operationName: String, category: String, pendingVideoId: UUID, creditsRequired: Int) async {
         var fetchCount = 0
         let maxFetches = 150
         
@@ -534,7 +518,6 @@ struct TextToVideoScreen: View {
                         self.showingQueuePopup = false
                         self.generationProgress = 0.0
                         
-                        // Update the existing pending video to failed status
                         if let existingVideo = AppStateManager.shared.generatedVideos.first(where: { $0.id == pendingVideoId }) {
                             let updatedVideo = GeneratedVideo(
                                 id: existingVideo.id,
@@ -556,10 +539,8 @@ struct TextToVideoScreen: View {
                        let videoUrl = firstVideo.gcsUri ?? firstVideo.bytesBase64Encoded {
                         
                         if let existingVideo = AppStateManager.shared.generatedVideos.first(where: { $0.id == pendingVideoId }) {
-                            // Generate thumbnail and wait for completion
                             let thumbnailData = await ThumbnailGenerator.generateThumbnail(from: videoUrl)
                             
-                            // Create completed video with or without thumbnail
                             let completedVideo = GeneratedVideo(
                                 id: existingVideo.id,
                                 date: existingVideo.date,
@@ -570,13 +551,15 @@ struct TextToVideoScreen: View {
                                 thumbnailData: thumbnailData
                             )
                             
-                            // Update only once with the final result
-                            AppStateManager.shared.updateGeneratedVideo(completedVideo)
-                            self.completedVideo = completedVideo
-                            
-                            // Now show the video detail view
-                            self.showingQueuePopup = false
-                            self.showingVideoDetail = true
+                            await MainActor.run {
+                                AppStateManager.shared.updateGeneratedVideo(completedVideo)
+                                self.completedVideo = completedVideo
+                                
+                                _ = self.subscriptionManager.useCredits(creditsRequired)
+                                
+                                self.showingQueuePopup = false
+                                self.showingVideoDetail = true
+                            }
                         }
                     } else {
                         let errorMsg = status.response?.raiMediaFilteredReasons?.joined(separator: ", ") ?? "Video generation failed"
@@ -615,14 +598,12 @@ struct TextToVideoScreen: View {
                     continue
                 }
                 
-                // Non-transient error, stop polling
                 await MainActor.run {
                     self.isGenerating = false
                     self.showingQueuePopup = false
                     self.generationProgress = 0.0
                     self.stopProgressTimer()
                     
-                    // Update the existing pending video to failed status
                     if let existingVideo = AppStateManager.shared.generatedVideos.first(where: { $0.id == pendingVideoId }) {
                         let updatedVideo = GeneratedVideo(
                             id: existingVideo.id,
@@ -636,7 +617,6 @@ struct TextToVideoScreen: View {
                         AppStateManager.shared.updateGeneratedVideo(updatedVideo)
                     }
                     
-                    // Delay showing error alert to ensure popup closes first
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.errorMessage = error.localizedDescription
                     }
@@ -645,14 +625,12 @@ struct TextToVideoScreen: View {
             }
         }
         
-        // Timeout after max retries
         await MainActor.run {
             self.isGenerating = false
             self.showingQueuePopup = false
             self.generationProgress = 0.0
             self.stopProgressTimer()
             
-            // Update the existing pending video to failed status with timeout error
             if let existingVideo = AppStateManager.shared.generatedVideos.first(where: { $0.id == pendingVideoId }) {
                 let updatedVideo = GeneratedVideo(
                     id: existingVideo.id,

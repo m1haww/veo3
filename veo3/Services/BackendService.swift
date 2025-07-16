@@ -5,8 +5,7 @@ import UIKit
 class BackendService {
     static let shared = BackendService()
     
-    private let baseURL = "http://localhost:5000"
-    // For production, update to: "https://your-domain.com"
+    private let baseURL = "https://veo3-backend-118847640969.europe-west1.run.app"
     
     private init() {}
     
@@ -55,19 +54,11 @@ class BackendService {
             throw BackendError.serverError("Invalid response type")
         }
         
-        // Parse response data
         let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
         
-        // Log the response
-        print("=== Backend Generate Video Response ===")
-        print("Status Code: \(httpResponse.statusCode)")
-        print("Response Body: \(json ?? [:])")
-        
-        // Check for success
         if httpResponse.statusCode != 200 {
             var errorMessage = json?["error"] as? String ?? "Unknown error"
             
-            // Check for nested error message structure
             if let messageDict = json?["message"] as? [String: Any],
                let errorDict = messageDict["error"] as? [String: Any],
                let detailedMessage = errorDict["message"] as? String {
@@ -82,9 +73,6 @@ class BackendService {
             print("Error: No operation name in response")
             throw BackendError.invalidResponse
         }
-        
-        print("Success! Operation Name: \(operationName)")
-        print("=====================================")
         
         return operationName
     }

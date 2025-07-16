@@ -3,13 +3,14 @@ import AVKit
 
 struct OnboardingView: View {
     @State private var currentPage = 0
-    @State private var showPaywall = false
     @State private var animationOffset: CGFloat = 0
     @State private var particleAnimation = false
     @State private var iconRotation: Double = 0
     @State private var iconScale: CGFloat = 1.0
     @State private var backgroundAnimation = false
+    
     @ObservedObject private var subscriptionManager = SubscriptionManager.shared
+    @ObservedObject private var appState = AppStateManager.shared
     
     let onboardingPages = [
         OnboardingPage(
@@ -20,8 +21,8 @@ struct OnboardingView: View {
             accentColor: Color.purple
         ),
         OnboardingPage(
-            title: "Multiple AI Models",
-            description: "Choose from various AI models to create the perfect video for your needs",
+            title: "Endless Possibilities",
+            description: "From fantasy worlds to realistic scenes, bring any vision to life with AI",
             videoNames: ["sirena1", "sirena2", "sirena3"],
             gradient: [Color.blue, Color.cyan],
             accentColor: Color.blue
@@ -68,61 +69,34 @@ struct OnboardingView: View {
                 Spacer()
                 
                 VStack(spacing: 20) {
-                    if currentPage < onboardingPages.count - 1 {
-                        JuicyButton(
-                            title: "Continue",
-                            gradient: onboardingPages[currentPage].gradient,
-                            action: {
+                    JuicyButton(
+                        title: "Continue",
+                        gradient: onboardingPages[currentPage].gradient,
+                        action: {
+                            if currentPage < onboardingPages.count - 1 {
                                 withAnimation(.easeInOut(duration: 1.2)) {
                                     currentPage += 1
                                 }
-                            }
-                        )
-                        
-                        Button(action: {
-                            withAnimation(.easeInOut(duration: 0.8)) {
-                                showPaywall = true
-                            }
-                        }) {
-                            Text("Skip")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
-                        .opacity(0.7)
-                        .scaleEffect(0.9)
-                        .frame(height: 20)
-                    } else {
-                        JuicyButton(
-                            title: "Continue",
-                            gradient: onboardingPages[currentPage].gradient,
-                            action: {
+                            } else {
+                                subscriptionManager.completeOnboarding()
                                 withAnimation(.easeInOut(duration: 1.0)) {
-                                    showPaywall = true
+                                    appState.showPaywall  = true
                                 }
                             }
-                        )
-                        
-                        Spacer()
-                            .frame(height: 20)
-                    }
+                        }
+                    )
+                    
+                    Spacer()
+                        .frame(height: 20)
                 }
                 .frame(minHeight: 96)
                 .padding(.horizontal)
-                .padding(.bottom, 30)
+                .padding(.bottom, 60)
             }
         }
-        .fullScreenCover(isPresented: $showPaywall) {
-            PaywallView(onPurchaseCompleted: nil, onRestoreCompleted: nil)
-                .onPurchaseCompleted { customerInfo in
-                    subscriptionManager.isSubscribed = customerInfo.entitlements.all["Pro"]?.isActive == true
-                    subscriptionManager.customerInfo = customerInfo
-                    
-                    if let activeSubscription = customerInfo.activeSubscriptions.first {
-                        let creditsToAdd = getCreditsForProduct(activeSubscription)
-                        subscriptionManager.addCredits(creditsToAdd)
-                    }
-                }
-        }
+        .onAppear(perform: {
+            UIScrollView.appearance().isScrollEnabled = false
+        })
         .onAppear {
             triggerPageAnimation()
         }
@@ -435,7 +409,7 @@ struct JuicyButton: View {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(
                                 LinearGradient(
-                                    colors: [Color.white.opacity(0.4), Color.clear, Color.white.opacity(0.2)],
+                                    colors: [Color.white.opacity(0.6), Color.white.opacity(0.4), Color.white.opacity(0.6)],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ),
@@ -444,13 +418,7 @@ struct JuicyButton: View {
                     )
                 
                 Rectangle()
-                    .fill(
-                        LinearGradient(
-                            colors: [Color.clear, Color.white.opacity(0.3), Color.clear],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
+                    .fill(Color.clear)
                     .frame(width: 60)
                     .offset(x: shimmerOffset)
                     .mask(RoundedRectangle(cornerRadius: 20))
@@ -468,10 +436,6 @@ struct JuicyButton: View {
             isPressed = pressing
         }, perform: {})
         .onAppear {
-            withAnimation(.linear(duration: 2.5).repeatForever(autoreverses: false)) {
-                shimmerOffset = 300
-            }
-            
             withAnimation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true)) {
                 pulseAnimation.toggle()
             }
@@ -605,9 +569,9 @@ struct JuicyVideoView: View {
             
             if let player = player {
                 VideoPlayer(player: player)
-                    .aspectRatio(contentMode: .fill)
                     .frame(width: 280, height: 280)
                     .clipped()
+                    .aspectRatio(1.0, contentMode: .fill)
                     .background(
                         LinearGradient(
                             colors: gradient,

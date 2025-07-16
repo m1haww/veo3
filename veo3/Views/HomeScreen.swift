@@ -5,6 +5,7 @@ struct HomeScreen: View {
     @State private var showingSettings = false
     @State private var showingTextToVideo = false
     @StateObject private var appState = AppStateManager.shared
+    @ObservedObject private var subscriptionManager = SubscriptionManager.shared
     
     var body: some View {
         NavigationView {
@@ -46,7 +47,7 @@ struct HomeScreen: View {
                                         .foregroundColor(.white)
                                         .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
                                     
-                                    Button(action: {}) {
+                                    Button(action: { showingTextToVideo = true }) {
                                         Text("Go for it!")
                                             .font(.system(size: 16, weight: .semibold))
                                             .foregroundColor(.black)
@@ -80,11 +81,11 @@ struct HomeScreen: View {
                                     
                                     Spacer()
                                     
-                                    Button(action: {}) {
+                                    Button(action: { appState.showPaywall = true }) {
                                         HStack(spacing: 6) {
                                             Image(systemName: "film")
                                                 .font(.system(size: 18))
-                                            Text("0")
+                                            Text("\(subscriptionManager.credits)")
                                                 .font(.system(size: 18, weight: .bold))
                                         }
                                         .foregroundColor(.white)
@@ -176,7 +177,6 @@ struct HomeScreen: View {
             .onChange(of: appState.shouldNavigateToCreate) { newValue in
                 if newValue && appState.selectedVideoPreset != nil {
                     showingTextToVideo = true
-                    // Reset the navigation flag
                     appState.shouldNavigateToCreate = false
                 }
             }

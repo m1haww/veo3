@@ -218,6 +218,8 @@ struct GeneratedVideoCard: View {
 }
 
 struct EmptyGalleryView: View {
+    @ObservedObject private var appState = AppStateManager.shared
+    
     var body: some View {
         VStack(spacing: 32) {
             Spacer()
@@ -266,7 +268,7 @@ struct EmptyGalleryView: View {
                 }
                 
                 Button(action: {
-                    // TODO: show paywall
+                    appState.showPaywall = true
                 }) {
                     HStack(spacing: 12) {
                         Image(systemName: "crown.fill")

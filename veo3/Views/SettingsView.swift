@@ -3,12 +3,7 @@ import RevenueCat
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var subscriptionManager: SubscriptionManager
-    @State private var notificationsEnabled = true
-    @State private var autoplayEnabled = true
-    @State private var hdQualityEnabled = false
-    @State private var apiKey = ""
-    @State private var showingAPIKeyAlert = false
+    @ObservedObject private var subscriptionManager = SubscriptionManager.shared
     @ObservedObject private var appStateManager = AppStateManager.shared
     
     var body: some View {
@@ -17,39 +12,10 @@ struct SettingsView: View {
             
             ScrollView {
                 VStack(spacing: 24) {
-                    // Subscription Section
-                    VStack(spacing: 20) {
-                        SettingsSectionHeader(title: "Subscription", icon: "crown.fill")
-                        
-                        if subscriptionManager.isSubscribed {
-                            HStack {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.green)
-                                    .frame(width: 30)
-                                
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text("Premium Member")
-                                        .font(.system(size: 16, weight: .medium))
-                                        .foregroundColor(.white)
-                                    
-                                    Text("All features unlocked")
-                                        .font(.system(size: 14))
-                                        .foregroundColor(.gray)
-                                }
-                                
-                                Spacer()
-                            }
-                            .padding()
-                            .background(
-                                LinearGradient(
-                                    colors: [Color.purple.opacity(0.2), Color.pink.opacity(0.2)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .cornerRadius(12)
-                        } else {
+                    if !subscriptionManager.isSubscribed {
+                        VStack(spacing: 20) {
+                            SettingsSectionHeader(title: "Subscription", icon: "crown.fill")
+                            
                             Button(action: { appStateManager.presentPaywall() }) {
                                 HStack {
                                     Image(systemName: "crown.fill")
@@ -83,93 +49,39 @@ struct SettingsView: View {
                                 )
                                 .cornerRadius(12)
                             }
-                        }
-                        
-                        Button(action: {
-                            subscriptionManager.restorePurchases { success in
-                                // Handle restore result
-                            }
-                        }) {
-                            HStack {
-                                Image(systemName: "arrow.counterclockwise")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.blue)
-                                    .frame(width: 30)
-                                
-                                Text("Restore Purchases")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.white)
-                                
-                                Spacer()
-                            }
-                            .padding()
-                            .background(Color.white.opacity(0.05))
-                            .cornerRadius(12)
-                        }
-                    }
-                    .padding(.horizontal)
-                    
-                    VStack(spacing: 20) {
-                        SettingsSectionHeader(title: "General", icon: "gear")
-                        
-                        SettingsToggleRow(
-                            title: "Notifications",
-                            subtitle: "Get updates about your video generation",
-                            icon: "bell.fill",
-                            iconColor: .purple,
-                            isOn: $notificationsEnabled
-                        )
-                        
-                        SettingsToggleRow(
-                            title: "Autoplay Videos",
-                            subtitle: "Automatically play videos in feed",
-                            icon: "play.circle.fill",
-                            iconColor: .blue,
-                            isOn: $autoplayEnabled
-                        )
-                        
-                        SettingsToggleRow(
-                            title: "HD Quality",
-                            subtitle: "Generate videos in highest quality",
-                            icon: "sparkles",
-                            iconColor: .orange,
-                            isOn: $hdQualityEnabled
-                        )
-                    }
-                    .padding(.horizontal)
-                    
-                    VStack(spacing: 20) {
-                        SettingsSectionHeader(title: "API Configuration", icon: "key.fill")
-                        
-                        Button(action: { showingAPIKeyAlert = true }) {
-                            HStack {
-                                Image(systemName: "key.fill")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.green)
-                                    .frame(width: 30)
-                                
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text("Runway API Key")
+                            
+                            Button(action: {
+                                subscriptionManager.restorePurchases { success in
+                                    if success, let customerInfo = subscriptionManager.customerInfo {
+                                        if let activeSubscription = customerInfo.activeSubscriptions.first {
+                                            let creditsToAdd = getCreditsForProduct(activeSubscription)
+                                            subscriptionManager.addCredits(creditsToAdd)
+                                        } else if let recentPurchase = customerInfo.allPurchasedProductIdentifiers.first {
+                                            let creditsToAdd = getCreditsForProduct(recentPurchase)
+                                            subscriptionManager.addCredits(creditsToAdd)
+                                        }
+                                    }
+                                }
+                            }) {
+                                HStack {
+                                    Image(systemName: "arrow.counterclockwise")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.blue)
+                                        .frame(width: 30)
+                                    
+                                    Text("Restore Purchases")
                                         .font(.system(size: 16, weight: .medium))
                                         .foregroundColor(.white)
                                     
-                                    Text(apiKey.isEmpty ? "Not configured" : "••••••••")
-                                        .font(.system(size: 14))
-                                        .foregroundColor(.gray)
+                                    Spacer()
                                 }
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.gray)
+                                .padding()
+                                .background(Color.white.opacity(0.05))
+                                .cornerRadius(12)
                             }
-                            .padding()
-                            .background(Color.white.opacity(0.05))
-                            .cornerRadius(12)
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                     
                     VStack(spacing: 20) {
                         SettingsSectionHeader(title: "About", icon: "info.circle.fill")
@@ -185,21 +97,33 @@ struct SettingsView: View {
                             title: "Privacy Policy",
                             icon: "lock.shield.fill",
                             iconColor: .purple,
-                            action: { }
+                            action: { 
+                                if let url = URL(string: "https://docs.google.com/document/d/1QP8Xk3Oh9QYw1ZD6M97dkeo63aA77Sppii3EC63PGZk/edit?usp=sharing") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }
                         )
                         
                         SettingsLinkRow(
                             title: "Terms of Service",
                             icon: "doc.text.fill",
                             iconColor: .blue,
-                            action: { }
+                            action: { 
+                                if let url = URL(string: "https://docs.google.com/document/d/1ZrNdg4W3Ug4BhokVc1BEgEAVmzWMykdalOpQvaZmm0A/edit?usp=sharing") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }
                         )
                         
                         SettingsLinkRow(
                             title: "Contact Support",
                             icon: "envelope.fill",
                             iconColor: .green,
-                            action: { }
+                            action: { 
+                                if let url = URL(string: "mailto:vekidotunize81459@gmail.com") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }
                         )
                     }
                     .padding(.horizontal)
@@ -209,7 +133,7 @@ struct SettingsView: View {
                             .font(.system(size: 14))
                             .foregroundColor(.gray)
                         
-                        Text("© 2024 Veo. All rights reserved.")
+                        Text("© 2025 Veo. All rights reserved.")
                             .font(.system(size: 12))
                             .foregroundColor(.gray.opacity(0.6))
                     }
@@ -229,14 +153,16 @@ struct SettingsView: View {
                 .foregroundColor(.white)
             }
         }
-        .alert("API Key", isPresented: $showingAPIKeyAlert) {
-            TextField("Enter your Runway API key", text: $apiKey)
-            Button("Save") {
-                // Save API key
-            }
-            Button("Cancel", role: .cancel) { }
-        } message: {
-            Text("Enter your Runway API key to enable video generation")
+    }
+    
+    private func getCreditsForProduct(_ productId: String) -> Int {
+        switch productId {
+        case "veo3.yearly.com":
+            return 10
+        case "veo3.monthly.com":
+            return 50
+        default:
+            return 0
         }
     }
 }

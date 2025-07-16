@@ -2,33 +2,34 @@ import Foundation
 import RevenueCat
 import SwiftUI
 
-class SubscriptionManager: ObservableObject {
+final class SubscriptionManager: ObservableObject {
     static let shared = SubscriptionManager()
     
     @Published var isSubscribed = false
     @Published var customerInfo: CustomerInfo?
     @Published var credits: Int = 0
+    @Published var showOnboarding = false
     
     private let creditsKey = "UserCredits"
     private let userDefaults = UserDefaults.standard
     
-    private init() {
+    private init() {}
+    
+    func loadConfig() {
         loadCredits()
         checkSubscriptionStatus()
     }
     
-    func checkSubscriptionStatus() {
-        Purchases.shared.getCustomerInfo { [weak self] customerInfo, error in
-            if let error = error {
-                print("Error fetching customer info: \(error)")
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self?.customerInfo = customerInfo
-                self?.isSubscribed = !(customerInfo?.entitlements.active.isEmpty ?? true)
-            }
+    func completeOnboarding() {
+        UserDefaults.standard.set(true, forKey: "onboardingCompleted")
+        showOnboarding = false
+    }
+    
+    private func checkSubscriptionStatus() {
+        Purchases.shared.getCustomerInfo { (customerInfo, error) in
+            self.isSubscribed = customerInfo?.entitlements.all["Pro"]?.isActive == true
         }
+        self.showOnboarding = !UserDefaults.standard.bool(forKey: "onboardingCompleted")
     }
     
     func restorePurchases(completion: @escaping (Bool) -> Void) {

@@ -13,11 +13,9 @@ struct LoopingVideoPlayer: UIViewRepresentable {
         playerLayer.frame = view.bounds
         view.layer.addSublayer(playerLayer)
         
-        // Store player in coordinator for later access
         context.coordinator.player = player
         context.coordinator.playerLayer = playerLayer
         
-        // Start playing
         player.isMuted = true
         player.play()
         
