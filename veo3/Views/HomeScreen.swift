@@ -16,7 +16,7 @@ struct HomeScreen: View {
                     LazyVStack(spacing: 0) {
                         ZStack(alignment: .top) {
                             ZStack {
-                                FullWidthVideoPlayer(videoName: "kiss")
+                                FullWidthVideoPlayer(videoName: "skydive")
                                     .scaledToFill()
                                     .frame(width: UIScreen.main.bounds.width, height: 300)
                                     .clipped()
@@ -42,7 +42,7 @@ struct HomeScreen: View {
                                 VStack(spacing: 7) {
                                     Spacer()
                                     
-                                    Text("AI kiss")
+                                    Text("AI Skydive")
                                         .font(.system(size: 48, weight: .bold))
                                         .foregroundColor(.white)
                                         .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
