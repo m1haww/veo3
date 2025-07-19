@@ -146,81 +146,30 @@ struct TextToVideoScreen: View {
                         }
                         .padding(.horizontal)
                         
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Aspect Ratio")
-                                .font(.system(size: 18, weight: .medium))
-                                .foregroundColor(.white)
-                                .padding(.horizontal)
-                            
-                            HStack(spacing: 12) {
-                                ForEach([VeoAspectRatio.landscape16x9], id: \.self) { ratio in
-                                    Button(action: { selectedVeoRatio = ratio }) {
-                                        VStack(spacing: 8) {
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .strokeBorder(
-                                                    selectedVeoRatio == ratio ? Color.purple : Color.white.opacity(0.2),
-                                                    lineWidth: 2
-                                                )
-                                                .aspectRatio(ratio.aspectRatio, contentMode: .fit)
-                                                .frame(height: 60)
-                                            
-                                            Text(ratio.displayName)
-                                                .font(.system(size: 12))
-                                                .foregroundColor(selectedVeoRatio == ratio ? .purple : .white.opacity(0.6))
-                                        }
-                                    }
-                                }
-                                Spacer()
+                        HStack(spacing: 24) {
+                            HStack(spacing: 8) {
+                                Text("Aspect Ratio")
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(.white.opacity(0.6))
+                                
+                                Text(selectedVeoRatio.displayName)
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(.purple)
                             }
-                            .padding(.horizontal)
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Duration")
-                                .font(.system(size: 18, weight: .medium))
-                                .foregroundColor(.white)
-                                .padding(.horizontal)
                             
-                            HStack(spacing: 12) {
-                                ForEach([8], id: \.self) { duration in
-                                    Button(action: { selectedDuration = duration }) {
-                                        HStack(spacing: 4) {
-                                            Image(systemName: "timer")
-                                                .font(.system(size: 16))
-                                            Text("\(duration)s")
-                                                .font(.system(size: 16, weight: .medium))
-                                        }
-                                        .foregroundColor(selectedDuration == duration ? .white : .white.opacity(0.6))
-                                        .padding(.horizontal, 20)
-                                        .padding(.vertical, 12)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .fill(selectedDuration == duration ? 
-                                                    LinearGradient(
-                                                        colors: [.purple.opacity(0.6), .pink.opacity(0.6)],
-                                                        startPoint: .leading,
-                                                        endPoint: .trailing
-                                                    ) : 
-                                                    LinearGradient(
-                                                        colors: [Color.white.opacity(0.05), Color.white.opacity(0.05)],
-                                                        startPoint: .leading,
-                                                        endPoint: .trailing
-                                                    )
-                                                )
-                                        )
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .stroke(
-                                                    selectedDuration == duration ? Color.purple : Color.white.opacity(0.2),
-                                                    lineWidth: selectedDuration == duration ? 2 : 1
-                                                )
-                                        )
-                                    }
-                                }
-                                Spacer()
+                            Spacer()
+                            
+                            HStack(spacing: 8) {
+                                Text("Duration")
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(.white.opacity(0.6))
+                                
+                                Text("\(selectedDuration)s")
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(.purple)
                             }
-                            .padding(.horizontal)
                         }
+                        .padding(.horizontal)
                         
                         VStack(alignment: .leading, spacing: 12) {
                             HStack {
