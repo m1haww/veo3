@@ -3,7 +3,6 @@ import AVKit
 
 struct TextToVideoScreen: View {
     @Environment(\.dismiss) var dismiss
-    @State private var promptText = ""
     @State private var isGenerating = false
     @State private var generationProgress: Double = 0.0
     @State private var showingSuccess = false
@@ -106,7 +105,7 @@ struct TextToVideoScreen: View {
                                 
                                 Button(action: {
                                     if let randomPrompt = promptSuggestions.randomElement() {
-                                        promptText = randomPrompt
+                                        appState.promptText = randomPrompt
                                     }
                                 }) {
                                     HStack(spacing: 4) {
@@ -130,13 +129,13 @@ struct TextToVideoScreen: View {
                                             .stroke(Color.white.opacity(0.1), lineWidth: 1)
                                     )
                                 
-                                TextEditor(text: $promptText)
+                                TextEditor(text: $appState.promptText)
                                     .scrollContentBackground(.hidden)
                                     .foregroundColor(.white)
                                     .padding(16)
                                     .frame(minHeight: 120)
                                 
-                                if promptText.isEmpty {
+                                if appState.promptText.isEmpty {
                                     Text("Describe what you want to see...")
                                         .foregroundColor(.white.opacity(0.3))
                                         .padding(20)
@@ -243,8 +242,8 @@ struct TextToVideoScreen: View {
                                 )
                             )
                             .cornerRadius(16)
-                            .disabled(isGenerating || promptText.isEmpty || !subscriptionManager.hasCredits(generateAudio ? 5 : 4))
-                            .opacity((isGenerating || promptText.isEmpty || !subscriptionManager.hasCredits(generateAudio ? 5 : 4)) ? 0.6 : 1)
+                            .disabled(isGenerating || appState.promptText.isEmpty || !subscriptionManager.hasCredits(generateAudio ? 5 : 4))
+                            .opacity((isGenerating || appState.promptText.isEmpty || !subscriptionManager.hasCredits(generateAudio ? 5 : 4)) ? 0.6 : 1)
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 40)
@@ -271,6 +270,7 @@ struct TextToVideoScreen: View {
         .onDisappear {
             appState.clearSelectedPreset()
             appState.clearSelectedCategory()
+            appState.clearPromptText()
         }
         .fullScreenCover(isPresented: $showingVideoDetail) {
             if let video = completedVideo {
@@ -290,7 +290,7 @@ struct TextToVideoScreen: View {
     }
     
     func generateVideo() {
-        guard !promptText.isEmpty else {
+        guard !appState.promptText.isEmpty else {
             errorMessage = "Please enter a prompt for video generation"
             isGenerating = false
             return
@@ -317,7 +317,7 @@ struct TextToVideoScreen: View {
         Task {
             do {
                 let operationName = try await VeoAPIService.shared.generateVideoFromText(
-                    prompt: promptText,
+                    prompt: appState.promptText,
                     model: .veo3Fast,
                     aspectRatio: selectedVeoRatio,
                     durationSeconds: selectedDuration,
@@ -333,7 +333,7 @@ struct TextToVideoScreen: View {
                     videoURL: nil,
                     category: category,
                     status: .pending,
-                    prompt: promptText
+                    prompt: appState.promptText
                 )
                 AppStateManager.shared.addGeneratedVideo(pendingVideo)
                 
@@ -395,7 +395,7 @@ struct TextToVideoScreen: View {
     
     func loadSelectedPreset() {
         if let preset = AppStateManager.shared.selectedVideoPreset {
-            promptText = preset.prompt
+            appState.promptText = preset.prompt
             selectedVeoRatio = .landscape16x9
             
             if let url = Bundle.main.url(forResource: preset.videoAssetName, withExtension: "mp4") {
@@ -433,7 +433,7 @@ struct TextToVideoScreen: View {
             
             if let preset = VideoPreset.preset(for: videoName) {
                 appState.selectedVideoPreset = preset
-                promptText = preset.prompt
+                appState.promptText = preset.prompt
                 selectedVeoRatio = .landscape16x9
             }
         }
@@ -474,7 +474,7 @@ struct TextToVideoScreen: View {
                                 videoURL: nil,
                                 category: category,
                                 status: .failed,
-                                prompt: self.promptText,
+                                prompt: self.appState.promptText,
                                 errorMessage: error.message
                             )
                             AppStateManager.shared.updateGeneratedVideo(updatedVideo)
@@ -496,7 +496,7 @@ struct TextToVideoScreen: View {
                                 videoURL: videoUrl,
                                 category: category,
                                 status: .completed,
-                                prompt: self.promptText,
+                                prompt: self.appState.promptText,
                                 thumbnailData: thumbnailData
                             )
                             
@@ -522,7 +522,7 @@ struct TextToVideoScreen: View {
                                 videoURL: nil,
                                 category: category,
                                 status: .failed,
-                                prompt: self.promptText,
+                                prompt: self.appState.promptText,
                                 errorMessage: errorMsg
                             )
                             AppStateManager.shared.updateGeneratedVideo(updatedVideo)
@@ -560,7 +560,7 @@ struct TextToVideoScreen: View {
                             videoURL: nil,
                             category: category,
                             status: .failed,
-                            prompt: self.promptText,
+                            prompt: self.appState.promptText,
                             errorMessage: error.localizedDescription
                         )
                         AppStateManager.shared.updateGeneratedVideo(updatedVideo)
@@ -587,7 +587,7 @@ struct TextToVideoScreen: View {
                     videoURL: nil,
                     category: category,
                     status: .failed,
-                    prompt: self.promptText,
+                    prompt: self.appState.promptText,
                     errorMessage: "Video generation timed out. Please try again."
                 )
                 AppStateManager.shared.updateGeneratedVideo(updatedVideo)

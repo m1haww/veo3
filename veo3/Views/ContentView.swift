@@ -17,7 +17,6 @@ struct ContentView: View {
     @ObservedObject private var appStateManager = AppStateManager.shared
     
     @State private var cachedSizeClass: UserInterfaceSizeClass = .compact
-
     
     var body: some View {
         ZStack {
@@ -62,6 +61,10 @@ struct ContentView: View {
             .onPreferenceChange(SizeClassPreferenceKey.self) { value in
                 cachedSizeClass = value ?? .compact
             }
+            .onChange(of: selectedTab) { _ in
+                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                impactFeedback.impactOccurred()
+            }
             .transformEnvironment(\.horizontalSizeClass) { sizeClass in
                 sizeClass = .compact
             }
@@ -70,6 +73,10 @@ struct ContentView: View {
                 Spacer()
                 
                 Button(action: {
+                    // Add haptic feedback
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                    impactFeedback.impactOccurred()
+                    
                     showCreateScreen = true
                 }) {
                     ZStack {

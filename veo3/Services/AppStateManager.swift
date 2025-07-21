@@ -10,6 +10,7 @@ class AppStateManager: ObservableObject {
     @Published var shouldNavigateToCreate: Bool = false
     @Published var generatedVideos: [GeneratedVideo] = []
     @Published var showPaywall: Bool = false
+    @Published var promptText: String = ""
     
     private let userDefaults = UserDefaults.standard
     private let generatedVideosKey = "GeneratedVideosHistory"
@@ -44,6 +45,14 @@ class AppStateManager: ObservableObject {
     
     func presentPaywall() {
         showPaywall = true
+    }
+    
+    func setPromptText(_ prompt: String) {
+        promptText = prompt
+    }
+    
+    func clearPromptText() {
+        promptText = ""
     }
     
     func addGeneratedVideo(_ video: GeneratedVideo) {

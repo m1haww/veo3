@@ -47,7 +47,14 @@ struct HomeScreen: View {
                                         .foregroundColor(.white)
                                         .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
                                     
-                                    Button(action: { showingTextToVideo = true }) {
+                                    Button(action: { 
+                                        // Add haptic feedback
+                                        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                                        impactFeedback.impactOccurred()
+                                        
+                                        appState.setPromptText("A thrilling skydiving adventure through clouds with an epic aerial view, extreme sports action sequence with professional camera work, cinematic lighting and dynamic movement")
+                                        showingTextToVideo = true 
+                                    }) {
                                         Text("Go for it!")
                                             .font(.system(size: 16, weight: .semibold))
                                             .foregroundColor(.black)
