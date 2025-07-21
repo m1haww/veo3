@@ -88,7 +88,7 @@ struct SettingsView: View {
                         
                         SettingsInfoRow(
                             title: "Version",
-                            value: "1.0.0",
+                            value: "1.0.6",
                             icon: "app.badge",
                             iconColor: .cyan
                         )
