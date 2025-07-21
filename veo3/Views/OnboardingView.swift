@@ -113,12 +113,18 @@ struct OnboardingView: View {
                             }) {
                                 Text(index == onboardingPages.count - 1 ? "Get Started" : "Continue")
                                     .font(.system(size: 18, weight: .semibold))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.white)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 56)
                                     .background(
                                         RoundedRectangle(cornerRadius: 28)
-                                            .fill(Color(red: 1, green: 0.85, blue: 0.4))
+                                            .fill(
+                                                LinearGradient(
+                                                    colors: [Color.purple, Color.pink],
+                                                    startPoint: .topLeading,
+                                                    endPoint: .bottomTrailing
+                                                )
+                                            )
                                     )
                             }
                             .padding(.horizontal, 30)
