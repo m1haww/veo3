@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class VeoAPIService {
+final class VeoAPIService {
     static let shared = VeoAPIService()
     
     private init() {}

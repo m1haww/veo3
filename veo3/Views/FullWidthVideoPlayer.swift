@@ -19,17 +19,14 @@ struct FullWidthVideoPlayer: View {
         }
         .onAppear {
             if !isInitialized {
-                // First time setup with slight delay
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     setupPlayer()
                 }
             } else if let player = player {
-                // Resume playing if already initialized
                 player.play()
             }
         }
         .onDisappear {
-            // Just pause, don't cleanup
             player?.pause()
         }
     }

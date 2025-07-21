@@ -1,8 +1,7 @@
 import Foundation
 import UIKit
 
-// Backend service for handling API calls through your server
-class BackendService {
+final class BackendService {
     static let shared = BackendService()
     
     private let baseURL = "https://veo3-backend-118847640969.europe-west1.run.app"

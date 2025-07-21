@@ -5,5 +5,5 @@ final class Conts {
     
     private init() {}
     
-      let revenueCatApiKey = "appl_HAhroIwhKiAGvZcWftEPQyGYJqk"
+    let revenueCatApiKey = "appl_HAhroIwhKiAGvZcWftEPQyGYJqk"
 }
