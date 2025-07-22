@@ -71,7 +71,6 @@ final class SubscriptionManager: ObservableObject {
     }
     
     private func loadCredits() {
-//        credits = userDefaults.integer(forKey: creditsKey)
-        credits = 100
+        credits = userDefaults.integer(forKey: creditsKey)
     }
 }
