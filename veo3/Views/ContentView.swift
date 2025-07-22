@@ -106,29 +106,14 @@ struct ContentView: View {
         .fullScreenCover(isPresented: $appStateManager.showPaywall) {
             PaywallView()
                 .onPurchaseCompleted { customerInfo in
-                    subscriptionManager.isSubscribed = customerInfo.entitlements.all["Pro"]?.isActive == true
+                    subscriptionManager.updateSubscriptionStatus(customerInfo)
                     appStateManager.showPaywall = false
-                    subscriptionManager.customerInfo = customerInfo
-                    
-                    if let activeSubscription = customerInfo.activeSubscriptions.first {
-                        let creditsToAdd = getCreditsForProduct(activeSubscription)
-                        subscriptionManager.addCredits(creditsToAdd)
-                    } else if let recentPurchase = customerInfo.allPurchasedProductIdentifiers.first {
-                        let creditsToAdd = getCreditsForProduct(recentPurchase)
-                        subscriptionManager.addCredits(creditsToAdd)
-                    }
+                }
+                .onRestoreCompleted { CustomerInfo in
+                    subscriptionManager.updateSubscriptionStatus(CustomerInfo)
+                    appStateManager.showPaywall = false
                 }
         }
     }
     
-    private func getCreditsForProduct(_ productId: String) -> Int {
-        switch productId {
-        case "veo3.yearly.com":
-            return 110
-        case "veo3.weekly.com":
-            return 15
-        default:
-            return 0
-        }
-    }
 }

@@ -11,6 +11,7 @@ final class SubscriptionManager: ObservableObject {
     @Published var showOnboarding = false
     
     private let creditsKey = "UserCredits"
+    private let subscriptionStatusKey = "SubscriptionStatus"
     private let userDefaults = UserDefaults.standard
     
     private init() {}
@@ -27,7 +28,10 @@ final class SubscriptionManager: ObservableObject {
     
     private func checkSubscriptionStatus() {
         Purchases.shared.getCustomerInfo { (customerInfo, error) in
-            self.isSubscribed = customerInfo?.entitlements.all["Pro"]?.isActive == true
+            DispatchQueue.main.async {
+                let isActive = customerInfo?.entitlements.all["Pro"]?.isActive == true
+                self.isSubscribed = isActive
+            }
         }
         self.showOnboarding = !UserDefaults.standard.bool(forKey: "onboardingCompleted")
     }
@@ -42,7 +46,8 @@ final class SubscriptionManager: ObservableObject {
             
             DispatchQueue.main.async {
                 self?.customerInfo = customerInfo
-                self?.isSubscribed = !(customerInfo?.entitlements.active.isEmpty ?? true)
+                let isActive = customerInfo?.entitlements.all["Pro"]?.isActive == true
+                self?.isSubscribed = isActive
                 completion(self?.isSubscribed ?? false)
             }
         }
@@ -72,5 +77,32 @@ final class SubscriptionManager: ObservableObject {
     
     private func loadCredits() {
         credits = userDefaults.integer(forKey: creditsKey)
+    }
+    
+    func updateSubscriptionStatus(_ customerInfo: CustomerInfo) {
+        let isActive = customerInfo.entitlements.all["Pro"]?.isActive == true
+        isSubscribed = isActive
+        self.customerInfo = customerInfo
+        
+        if isActive {
+            if let activeSubscription = customerInfo.activeSubscriptions.first {
+                let creditsToAdd = getCreditsForProduct(activeSubscription)
+                addCredits(creditsToAdd)
+            } else if let recentPurchase = customerInfo.allPurchasedProductIdentifiers.first {
+                let creditsToAdd = getCreditsForProduct(recentPurchase)
+                addCredits(creditsToAdd)
+            }
+        }
+    }
+    
+    private func getCreditsForProduct(_ productId: String) -> Int {
+        switch productId {
+        case "com.vemix.weekly":
+            return 15
+        case "com.vemix.yearly":
+            return 100
+        default:
+            return 0
+        }
     }
 }

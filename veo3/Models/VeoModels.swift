@@ -1,7 +1,5 @@
 import Foundation
 
-// MARK: - Request Models
-
 struct VeoVideoGenerationRequest: Codable {
     let instances: [VeoInstance]
     let parameters: VeoParameters
@@ -37,8 +35,6 @@ struct VeoParameters: Codable {
     let seed: UInt32?
     let storageUri: String?
 }
-
-// MARK: - Response Models
 
 struct VeoOperationResponse: Codable {
     let name: String

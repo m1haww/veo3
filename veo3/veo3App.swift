@@ -18,17 +18,6 @@ struct veo3App: App {
             }
         }
     }
-    
-    private func getCreditsForProduct(_ productId: String) -> Int {
-        switch productId {
-        case "veo3.weekly.com":
-            return 15
-        case "veo3.yearly.com":
-            return 110
-        default:
-            return 0
-        }
-    }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
