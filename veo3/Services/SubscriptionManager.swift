@@ -26,10 +26,11 @@ final class SubscriptionManager: ObservableObject {
     }
     
     private func checkSubscriptionStatus() {
-        Purchases.shared.getCustomerInfo { (customerInfo, error) in
-            self.isSubscribed = customerInfo?.entitlements.all["Pro"]?.isActive == true
-        }
-        self.showOnboarding = !UserDefaults.standard.bool(forKey: "onboardingCompleted")
+//        Purchases.shared.getCustomerInfo { (customerInfo, error) in
+//            self.isSubscribed = customerInfo?.entitlements.all["Pro"]?.isActive == true
+//        }
+//        self.showOnboarding = !UserDefaults.standard.bool(forKey: "onboardingCompleted")
+        self.isSubscribed = true
     }
     
     func restorePurchases(completion: @escaping (Bool) -> Void) {
@@ -71,6 +72,7 @@ final class SubscriptionManager: ObservableObject {
     }
     
     private func loadCredits() {
-        credits = userDefaults.integer(forKey: creditsKey)
+//        credits = userDefaults.integer(forKey: creditsKey)
+        credits = 100
     }
 }

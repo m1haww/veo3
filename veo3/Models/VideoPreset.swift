@@ -28,7 +28,7 @@ enum PresetCategory: String, CaseIterable {
     case interviews = "Interviews"
     case reports = "Reports"
     case sirena = "Sirena"
-    case girl = "Girl"
+    case portraits = "Portraits"
     case fantasy = "Fantasy"
     case custom = "Custom"
 }
@@ -58,22 +58,22 @@ extension VideoPreset {
         ),
         VideoPreset(
             videoAssetName: "interview1",
-            title: "Street Talk LA",
-            prompt: "Street interviews on Hollywood Boulevard, asking locals about trending topics",
+            title: "Street Talk",
+            prompt: "Street interviews on busy city boulevard, asking locals about trending topics",
             style: "News",
             category: .interviews
         ),
         VideoPreset(
             videoAssetName: "interview2",
-            title: "Miami Beach Chat",
-            prompt: "Beachside interviews with tourists and locals in Miami's South Beach",
+            title: "Beach Chat",
+            prompt: "Beachside interviews with tourists and locals on sunny beach",
             style: "Documentary",
             category: .interviews
         ),
         VideoPreset(
             videoAssetName: "interview3",
-            title: "NYC Opinions",
-            prompt: "Times Square street interviews capturing diverse New York perspectives",
+            title: "City Opinions",
+            prompt: "Busy city square street interviews capturing diverse urban perspectives",
             style: "Lifestyle",
             category: .interviews
         ),
@@ -93,8 +93,8 @@ extension VideoPreset {
         ),
         VideoPreset(
             videoAssetName: "report3",
-            title: "Granny's Lambo Joyride",
-            prompt: "Hilarious news coverage of grandmother taking green Lamborghini for unexpected joyride",
+            title: "Granny's Sports Car Joyride",
+            prompt: "Hilarious news coverage of grandmother taking green sports car for unexpected joyride",
             style: "Broadcast",
             category: .reports
         ),
@@ -130,58 +130,54 @@ extension VideoPreset {
             category: .sirena,
             isPortrait: true
         ),
-        
-        // Girl category presets
         VideoPreset(
             videoAssetName: "girl1",
             title: "Golden Hour",
-            prompt: "Beautiful portrait during golden hour with warm sunset lighting",
+            prompt: "Beautiful girl portrait during golden hour with warm sunset lighting",
             style: "Portrait",
-            category: .girl,
+            category: .portraits,
             isPortrait: true
         ),
         VideoPreset(
             videoAssetName: "girl2",
             title: "City Lights",
-            prompt: "Urban portrait with neon lights and city backdrop at night",
+            prompt: "Beautiful girl in urban setting with neon lights and city backdrop at night",
             style: "Cinematic",
-            category: .girl,
+            category: .portraits,
             isPortrait: true
         ),
         VideoPreset(
             videoAssetName: "girl3",
             title: "Nature Walk",
-            prompt: "Natural beauty portrait in outdoor forest setting",
+            prompt: "Beautiful girl enjoying nature walk in outdoor forest setting",
             style: "Lifestyle",
-            category: .girl,
+            category: .portraits,
             isPortrait: true
         ),
         VideoPreset(
             videoAssetName: "girl4",
-            title: "Coffee Date",
-            prompt: "Cozy cafe portrait with warm atmosphere and coffee",
+            title: "Coffee Time",
+            prompt: "Beautiful girl in cozy cafe with warm atmosphere and coffee",
             style: "Lifestyle",
-            category: .girl,
+            category: .portraits,
             isPortrait: true
         ),
         VideoPreset(
             videoAssetName: "girl5",
             title: "Beach Vibes",
-            prompt: "Beach portrait with ocean waves and summer vibes",
+            prompt: "Beautiful girl at beach with ocean waves and summer vibes",
             style: "Travel",
-            category: .girl,
+            category: .portraits,
             isPortrait: true
         ),
         VideoPreset(
             videoAssetName: "girl6",
             title: "Night Out",
-            prompt: "Glamorous evening portrait with elegant styling",
+            prompt: "Beautiful girl in elegant evening attire with sophisticated styling",
             style: "Fashion",
-            category: .girl,
+            category: .portraits,
             isPortrait: true
         ),
-        
-        // Fantasy category presets
         VideoPreset(
             videoAssetName: "fantasy1",
             title: "Dragon Realm",

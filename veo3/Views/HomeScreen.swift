@@ -48,7 +48,6 @@ struct HomeScreen: View {
                                         .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
                                     
                                     Button(action: { 
-                                        // Add haptic feedback
                                         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                                         impactFeedback.impactOccurred()
                                         

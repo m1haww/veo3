@@ -50,19 +50,19 @@ extension VideoCategory {
             title: "Interviews",
             subtitle: "Conversations with people",
             videos: [
-                VideoItem(fileName: "interview1", displayTitle: "Street Talk LA"),
-                VideoItem(fileName: "interview2", displayTitle: "Miami Beach Chat"),
-                VideoItem(fileName: "interview3", displayTitle: "NYC Opinions")
+                VideoItem(fileName: "interview1", displayTitle: "Street Talk"),
+                VideoItem(fileName: "interview2", displayTitle: "Beach Chat"),
+                VideoItem(fileName: "interview3", displayTitle: "City Opinions")
             ]
         ),
         VideoCategory(
-            title: "Girl",
-            subtitle: "Portrait perfection",
+            title: "Portraits",
+            subtitle: "Lifestyle photography",
             videos: [
                 VideoItem(fileName: "girl1", displayTitle: "Golden Hour"),
                 VideoItem(fileName: "girl2", displayTitle: "City Lights"),
                 VideoItem(fileName: "girl3", displayTitle: "Nature Walk"),
-                VideoItem(fileName: "girl4", displayTitle: "Coffee Date"),
+                VideoItem(fileName: "girl4", displayTitle: "Coffee Time"),
                 VideoItem(fileName: "girl5", displayTitle: "Beach Vibes"),
                 VideoItem(fileName: "girl6", displayTitle: "Night Out")
             ],
@@ -74,7 +74,7 @@ extension VideoCategory {
             videos: [
                 VideoItem(fileName: "report1", displayTitle: "Breaking News Update"),
                 VideoItem(fileName: "report2", displayTitle: "Field Report Live"),
-                VideoItem(fileName: "report3", displayTitle: "Granny's Lambo Joyride")
+                VideoItem(fileName: "report3", displayTitle: "Granny's Sports Car Joyride")
             ]
         ),
         VideoCategory(

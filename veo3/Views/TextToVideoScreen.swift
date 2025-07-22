@@ -20,6 +20,7 @@ struct TextToVideoScreen: View {
     @State private var progressTimer: Timer?
     @State private var progressStartTime: Date?
     @ObservedObject private var subscriptionManager = SubscriptionManager.shared
+    @FocusState private var isTextFieldFocused: Bool
     
     let promptSuggestions = [
         "A magical forest with glowing butterflies",
@@ -134,6 +135,7 @@ struct TextToVideoScreen: View {
                                     .foregroundColor(.white)
                                     .padding(16)
                                     .frame(minHeight: 120)
+                                    .focused($isTextFieldFocused)
                                 
                                 if appState.promptText.isEmpty {
                                     Text("Describe what you want to see...")
@@ -219,7 +221,10 @@ struct TextToVideoScreen: View {
                         .padding(.horizontal)
                         .padding(.bottom, 8)
                         
-                        Button(action: generateVideo) {
+                        Button(action: {
+                            isTextFieldFocused = false
+                            generateVideo()
+                        }) {
                             HStack {
                                 if isGenerating {
                                     ProgressView()
@@ -292,9 +297,13 @@ struct TextToVideoScreen: View {
     func generateVideo() {
         guard !appState.promptText.isEmpty else {
             errorMessage = "Please enter a prompt for video generation"
-            isGenerating = false
             return
         }
+        
+        print("[TextToVideoScreen] Starting video generation")
+        print("[TextToVideoScreen] Prompt: \(appState.promptText)")
+        print("[TextToVideoScreen] Device: \(UIDevice.current.model)")
+        print("[TextToVideoScreen] iOS Version: \(UIDevice.current.systemVersion)")
         
         let creditsRequired = generateAudio ? 5 : 4
         if !subscriptionManager.hasCredits(creditsRequired) {
@@ -308,14 +317,19 @@ struct TextToVideoScreen: View {
         isGenerating = true
         generationProgress = 0.0
         errorMessage = nil
-        withAnimation(.spring()) {
-            showingQueuePopup = true
+        
+        // Ensure UI updates happen on main thread
+        Task { @MainActor in
+            withAnimation(.spring()) {
+                showingQueuePopup = true
+            }
         }
         
         startProgressTimer()
         
         Task {
             do {
+                print("[TextToVideoScreen] Calling VeoAPIService.generateVideoFromText")
                 let operationName = try await VeoAPIService.shared.generateVideoFromText(
                     prompt: appState.promptText,
                     model: .veo3Fast,
@@ -323,6 +337,7 @@ struct TextToVideoScreen: View {
                     durationSeconds: selectedDuration,
                     generateAudio: generateAudio
                 )
+                print("[TextToVideoScreen] Received operation name: \(operationName)")
                 
                 
                 generationTaskId = operationName
@@ -339,6 +354,9 @@ struct TextToVideoScreen: View {
                 
                 await pollForVideoCompletion(operationName: operationName, category: category, pendingVideoId: pendingVideo.id, creditsRequired: creditsRequired)
             } catch {
+                print("[TextToVideoScreen] Error during video generation: \(error)")
+                print("[TextToVideoScreen] Error description: \(error.localizedDescription)")
+                
                 await MainActor.run {
                     self.isGenerating = false
                     self.showingQueuePopup = false
@@ -372,7 +390,7 @@ struct TextToVideoScreen: View {
             guard let startTime = self.progressStartTime else { return }
             
             let elapsed = Date().timeIntervalSince(startTime)
-            let totalDuration: TimeInterval = 180.0 // 3 minutes
+            let totalDuration: TimeInterval = 120.0
             
             let calculatedProgress = min(elapsed / totalDuration, 0.95)
             
@@ -447,11 +465,19 @@ struct TextToVideoScreen: View {
             do {
                 let status = try await VeoAPIService.shared.getOperationStatus(operationName: operationName)
                 
+                if fetchCount % 10 == 0 {
+                    print("[TextToVideoScreen] Polling attempt \(fetchCount) - Status: \(status.done ?? false)")
+                }
+                
                 await MainActor.run {
                     self.currentOperationStatus = status
                 }
                 
                 if status.done == true {
+                    print("[TextToVideoScreen] Operation completed")
+                    print("[TextToVideoScreen] Has error: \(status.error != nil)")
+                    print("[TextToVideoScreen] Has videos: \(status.response?.videos?.isEmpty == false)")
+                    
                     await MainActor.run {
                         self.isGenerating = false
                         self.stopProgressTimer()
@@ -540,8 +566,11 @@ struct TextToVideoScreen: View {
                 try await Task.sleep(nanoseconds: 2_000_000_000)
                 fetchCount += 1
             } catch {
+                print("[TextToVideoScreen] Polling error: \(error)")
+                
                 if let urlError = error as? URLError,
                    (urlError.code == .timedOut || urlError.code == .networkConnectionLost || urlError.code == .notConnectedToInternet) {
+                    print("[TextToVideoScreen] Network error, retrying...")
                     try? await Task.sleep(nanoseconds: 2_000_000_000)
                     fetchCount += 1
                     continue

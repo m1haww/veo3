@@ -5,6 +5,12 @@ final class BackendService {
     static let shared = BackendService()
     
     private let baseURL = "https://veo3-backend-118847640969.europe-west1.run.app"
+    private lazy var session: URLSession = {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 30
+        config.timeoutIntervalForResource = 120
+        return URLSession(configuration: config)
+    }()
     
     private init() {}
     
@@ -47,7 +53,10 @@ final class BackendService {
             body: try? JSONSerialization.data(withJSONObject: requestBody)
         )
         
-        let (data, response) = try await URLSession.shared.data(for: request)
+        print("[BackendService] Sending video generation request")
+        print("[BackendService] Request body: \(String(data: request.httpBody ?? Data(), encoding: .utf8) ?? "empty")")
+        
+        let (data, response) = try await session.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw BackendError.serverError("Invalid response type")
@@ -64,15 +73,19 @@ final class BackendService {
                 errorMessage = detailedMessage
             }
             
-            print("Error: \(errorMessage)")
+            print("[BackendService] Error response - Status: \(httpResponse.statusCode)")
+            print("[BackendService] Error message: \(errorMessage)")
+            print("[BackendService] Full response: \(String(data: data, encoding: .utf8) ?? "unable to decode")")
             throw BackendError.serverError(errorMessage)
         }
         
         guard let operationName = json?["name"] as? String else {
-            print("Error: No operation name in response")
+            print("[BackendService] Error: No operation name in response")
+            print("[BackendService] Response data: \(String(data: data, encoding: .utf8) ?? "unable to decode")")
             throw BackendError.invalidResponse
         }
         
+        print("[BackendService] Video generation started with operation: \(operationName)")
         return operationName
     }
     
@@ -85,7 +98,7 @@ final class BackendService {
             body: try? JSONSerialization.data(withJSONObject: requestBody)
         )
         
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await session.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 else {
