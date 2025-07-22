@@ -3,7 +3,7 @@ import Foundation
 struct GeneratedVideo: Identifiable, Codable {
     let id: UUID
     let date: Date
-    let videoURL: String?
+    let videoFilePath: String?
     let category: String
     let status: GeneratedVideoStatus
     let prompt: String?
@@ -13,7 +13,7 @@ struct GeneratedVideo: Identifiable, Codable {
     init(
         id: UUID = UUID(),
         date: Date = Date(),
-        videoURL: String?,
+        videoFilePath: String?,
         category: String,
         status: GeneratedVideoStatus,
         prompt: String? = nil,
@@ -22,7 +22,7 @@ struct GeneratedVideo: Identifiable, Codable {
     ) {
         self.id = id
         self.date = date
-        self.videoURL = videoURL
+        self.videoFilePath = videoFilePath
         self.category = category
         self.status = status
         self.prompt = prompt

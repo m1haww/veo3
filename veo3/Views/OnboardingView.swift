@@ -103,7 +103,7 @@ struct OnboardingView: View {
                                 .animation(.spring(response: 0.5, dampingFraction: 0.7), value: currentPage)
                         }
                     }
-                    .padding(.top, 20)
+                    .padding(.vertical, 20)
                     
                     Button(action: {
                         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
@@ -137,7 +137,7 @@ struct OnboardingView: View {
                             )
                     }
                     .padding(.horizontal, 30)
-                    .padding(.bottom, 40)
+                    .padding(.bottom, 20)
                 }
                 .background(Color.black)
             }

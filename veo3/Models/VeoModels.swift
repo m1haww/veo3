@@ -72,8 +72,6 @@ struct VeoGeneratedVideo: Codable {
     let mimeType: String?
 }
 
-// MARK: - Enums
-
 enum VeoAspectRatio: String {
     case landscape16x9 = "16:9"
     case portrait9x16 = "9:16"

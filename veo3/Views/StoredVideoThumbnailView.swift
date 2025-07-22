@@ -11,9 +11,6 @@ struct StoredVideoThumbnailView: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-            } else if video.status == .completed, let videoURL = video.videoURL {
-                // Fallback to loading thumbnail from video URL
-                VideoThumbnailView(videoURL: videoURL)
             } else {
                 // Placeholder gradient
                 Rectangle()

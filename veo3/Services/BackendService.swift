@@ -6,11 +6,27 @@ final class BackendService {
     
     private let baseURL = "https://veo3-backend-118847640969.europe-west1.run.app"
     private lazy var session: URLSession = {
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 30
-        config.timeoutIntervalForResource = 120
-        return URLSession(configuration: config)
+        return safeSession()
     }()
+    
+    private func safeSession() -> URLSession {
+        let config: URLSessionConfiguration
+        if #available(iOS 18.4, *) {
+            config = URLSessionConfiguration.ephemeral
+        } else {
+            config = URLSessionConfiguration.default
+        }
+        
+        config.timeoutIntervalForRequest = 60
+        config.timeoutIntervalForResource = 300
+        config.waitsForConnectivity = true
+        config.allowsCellularAccess = true
+        config.httpShouldSetCookies = false
+        config.httpShouldUsePipelining = false
+        config.httpMaximumConnectionsPerHost = 1
+        
+        return URLSession(configuration: config)
+    }
     
     private init() {}
     
@@ -19,8 +35,7 @@ final class BackendService {
         prompt: String?,
         aspectRatio: VeoAspectRatio,
         duration: Int,
-        generateAudio: Bool,
-        storageUri: String? = nil
+        generateAudio: Bool
     ) async throws -> String {
         var requestBody: [String: Any] = [
             "aspectRatio": aspectRatio.rawValue,
@@ -30,16 +45,10 @@ final class BackendService {
             "model": "veo-3.0-fast-generate-preview"
         ]
         
-        if let storageUri = storageUri {
-            requestBody["storageUri"] = storageUri
-        }
-        
-        // Add prompt if provided
         if let prompt = prompt {
             requestBody["prompt"] = prompt
         }
         
-        // Convert image to base64 only if provided
         if let image = image,
            let imageData = image.jpegData(compressionQuality: 0.8) {
             let base64String = imageData.base64EncodedString()
@@ -47,39 +56,51 @@ final class BackendService {
             requestBody["imageMimeType"] = "image/jpeg"
         }
         
+        let jsonData: Data
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+        } catch {
+            print("[BackendService] Error serializing request body: \(error)")
+            throw BackendError.serverError("Cannot serialize request: \(error.localizedDescription)")
+        }
+        
         let request = createRequest(
             endpoint: "/generate-video",
             method: "POST",
-            body: try? JSONSerialization.data(withJSONObject: requestBody)
+            body: jsonData
         )
         
-        print("[BackendService] Sending video generation request")
-        print("[BackendService] Request body: \(String(data: request.httpBody ?? Data(), encoding: .utf8) ?? "empty")")
-        
-        let (data, response) = try await session.data(for: request)
+        let (data, response): (Data, URLResponse)
+        do {
+            (data, response) = try await session.data(for: request)
+        } catch let error as URLError {
+            if error.code == .cannotParseResponse {
+                throw BackendError.serverError("Server returned malformed response. Please check server logs.")
+            }
+            throw error
+        } catch {
+            print("[BackendService] Network error: \(error)")
+            throw error
+        }
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw BackendError.serverError("Invalid response type")
         }
         
-        let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-        
-        if httpResponse.statusCode != 200 {
-            var errorMessage = json?["error"] as? String ?? "Unknown error"
-            
-            if let messageDict = json?["message"] as? [String: Any],
-               let errorDict = messageDict["error"] as? [String: Any],
-               let detailedMessage = errorDict["message"] as? String {
-                errorMessage = detailedMessage
+        let json: [String: Any]
+        do {
+            guard let parsedJson = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                print("[BackendService] Error: Response is not a JSON object")
+                throw BackendError.invalidResponse
             }
-            
-            print("[BackendService] Error response - Status: \(httpResponse.statusCode)")
-            print("[BackendService] Error message: \(errorMessage)")
-            print("[BackendService] Full response: \(String(data: data, encoding: .utf8) ?? "unable to decode")")
-            throw BackendError.serverError(errorMessage)
+            json = parsedJson
+        } catch {
+            print("[BackendService] JSON parsing error: \(error)")
+            print("[BackendService] Raw response: \(String(data: data, encoding: .utf8) ?? "unable to decode")")
+            throw BackendError.serverError("Cannot parse response: \(error.localizedDescription)")
         }
         
-        guard let operationName = json?["name"] as? String else {
+        guard let operationName = json["name"] as? String else {
             print("[BackendService] Error: No operation name in response")
             print("[BackendService] Response data: \(String(data: data, encoding: .utf8) ?? "unable to decode")")
             throw BackendError.invalidResponse
@@ -92,24 +113,41 @@ final class BackendService {
     func getVideoStatus(operationId: String) async throws -> VeoOperationStatus {
         let requestBody = ["operationName": operationId]
         
+        let jsonData: Data
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+        } catch {
+            print("[BackendService] Error serializing status request body: \(error)")
+            throw BackendError.serverError("Cannot serialize status request: \(error.localizedDescription)")
+        }
+        
         let request = createRequest(
             endpoint: "/check-operation",
             method: "POST",
-            body: try? JSONSerialization.data(withJSONObject: requestBody)
+            body: jsonData
         )
         
         let (data, response) = try await session.data(for: request)
         
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
-            throw BackendError.serverError("Failed to check operation status")
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw BackendError.serverError("Invalid response type")
         }
         
-        let decoder = JSONDecoder()
-        return try decoder.decode(VeoOperationStatus.self, from: data)
+        if httpResponse.statusCode != 200 {
+            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+            let errorMessage = json?["error"] as? String ?? "Failed to check operation status"
+            throw BackendError.serverError(errorMessage)
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            return try decoder.decode(VeoOperationStatus.self, from: data)
+        } catch {
+            print("[BackendService] JSON decoding error: \(error)")
+            print("[BackendService] Raw response: \(String(data: data, encoding: .utf8) ?? "unable to decode")")
+            throw BackendError.invalidResponse
+        }
     }
-    
-    // MARK: - Helper Methods
     
     private func createRequest(
         endpoint: String,
@@ -120,26 +158,23 @@ final class BackendService {
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        // Add your backend authentication if needed
-        // request.setValue("Bearer \(backendToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("no-cache", forHTTPHeaderField: "Cache-Control")
+        request.setValue("gzip, deflate", forHTTPHeaderField: "Accept-Encoding")
         
         if let body = body {
             request.httpBody = body
+            request.setValue("\(body.count)", forHTTPHeaderField: "Content-Length")
         }
         
         return request
     }
 }
 
-// MARK: - Models
-
 struct AuthToken: Codable {
     let token: String
     let expiresIn: Int
 }
-
-// MARK: - Errors
 
 enum BackendError: LocalizedError {
     case notImplemented

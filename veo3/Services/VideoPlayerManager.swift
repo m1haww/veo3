@@ -9,7 +9,6 @@ final class VideoPlayerManager: ObservableObject {
     private var observers: [String: NSObjectProtocol] = [:]
     private var timers: [String: Timer] = [:]
     private var playingPlayers: Set<String> = []
-    private let maxConcurrentPlayers = 3
     
     private init() {}
     
@@ -19,10 +18,6 @@ final class VideoPlayerManager: ObservableObject {
             return existingPlayer
         }
         
-        // Limit concurrent players for performance
-        if playerCache.count >= maxConcurrentPlayers {
-            cleanupOldestPlayer()
-        }
         
         // Create new player
         guard let url = Bundle.main.url(forResource: videoName, withExtension: "mp4") else {
@@ -118,15 +113,6 @@ final class VideoPlayerManager: ObservableObject {
         timers.removeValue(forKey: videoName)
     }
     
-    private func cleanupOldestPlayer() {
-        // Remove the oldest non-playing player
-        for videoName in playerCache.keys {
-            if !playingPlayers.contains(videoName) {
-                cleanupPlayer(for: videoName)
-                break
-            }
-        }
-    }
     
     func cleanupAll() {
         for videoName in Array(playerCache.keys) {

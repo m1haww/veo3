@@ -47,12 +47,12 @@ struct HomeScreen: View {
                                         .foregroundColor(.white)
                                         .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
                                     
-                                    Button(action: { 
+                                    Button(action: {
                                         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                                         impactFeedback.impactOccurred()
                                         
                                         appState.setPromptText("A thrilling skydiving adventure through clouds with an epic aerial view, extreme sports action sequence with professional camera work, cinematic lighting and dynamic movement")
-                                        showingTextToVideo = true 
+                                        showingTextToVideo = true
                                     }) {
                                         Text("Go for it!")
                                             .font(.system(size: 16, weight: .semibold))
@@ -154,7 +154,7 @@ struct HomeScreen: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     LazyHStack(spacing: 16) {
                                         ForEach(Array(category.videos.enumerated()), id: \.offset) { index, video in
-                                            VideoThumbnailCard(
+                                            LazyVideoThumbnailCard(
                                                 videoName: video.fileName,
                                                 title: video.displayTitle,
                                                 isPortrait: category.isPortrait,
@@ -221,6 +221,24 @@ struct HomeScreen: View {
                     .cornerRadius(12)
             }
             .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
+        }
+    }
+}
+
+struct LazyVideoThumbnailCard: View {
+    let videoName: String
+    let title: String
+    var isPortrait: Bool
+    var category: VideoCategory?
+    
+    var body: some View {
+        TimelineView(.animation) { _ in
+            VideoThumbnailCard(
+                videoName: videoName,
+                title: title,
+                isPortrait: isPortrait,
+                category: category
+            )
         }
     }
 }

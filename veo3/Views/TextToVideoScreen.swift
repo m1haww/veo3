@@ -300,11 +300,6 @@ struct TextToVideoScreen: View {
             return
         }
         
-        print("[TextToVideoScreen] Starting video generation")
-        print("[TextToVideoScreen] Prompt: \(appState.promptText)")
-        print("[TextToVideoScreen] Device: \(UIDevice.current.model)")
-        print("[TextToVideoScreen] iOS Version: \(UIDevice.current.systemVersion)")
-        
         let creditsRequired = generateAudio ? 5 : 4
         if !subscriptionManager.hasCredits(creditsRequired) {
             dismiss()
@@ -318,7 +313,6 @@ struct TextToVideoScreen: View {
         generationProgress = 0.0
         errorMessage = nil
         
-        // Ensure UI updates happen on main thread
         Task { @MainActor in
             withAnimation(.spring()) {
                 showingQueuePopup = true
@@ -329,7 +323,6 @@ struct TextToVideoScreen: View {
         
         Task {
             do {
-                print("[TextToVideoScreen] Calling VeoAPIService.generateVideoFromText")
                 let operationName = try await VeoAPIService.shared.generateVideoFromText(
                     prompt: appState.promptText,
                     model: .veo3Fast,
@@ -339,13 +332,12 @@ struct TextToVideoScreen: View {
                 )
                 print("[TextToVideoScreen] Received operation name: \(operationName)")
                 
-                
                 generationTaskId = operationName
                 
                 let category = appState.selectedCategory?.title ?? "Custom"
                 
                 let pendingVideo = GeneratedVideo(
-                    videoURL: nil,
+                    videoFilePath: nil,
                     category: category,
                     status: .pending,
                     prompt: appState.promptText
@@ -474,10 +466,6 @@ struct TextToVideoScreen: View {
                 }
                 
                 if status.done == true {
-                    print("[TextToVideoScreen] Operation completed")
-                    print("[TextToVideoScreen] Has error: \(status.error != nil)")
-                    print("[TextToVideoScreen] Has videos: \(status.response?.videos?.isEmpty == false)")
-                    
                     await MainActor.run {
                         self.isGenerating = false
                         self.stopProgressTimer()
@@ -497,7 +485,7 @@ struct TextToVideoScreen: View {
                             let updatedVideo = GeneratedVideo(
                                 id: existingVideo.id,
                                 date: existingVideo.date,
-                                videoURL: nil,
+                                videoFilePath: nil,
                                 category: category,
                                 status: .failed,
                                 prompt: self.appState.promptText,
@@ -510,30 +498,36 @@ struct TextToVideoScreen: View {
                             self.errorMessage = error.message
                         }
                     } else if let videos = status.response?.videos,
-                       let firstVideo = videos.first,
-                       let videoUrl = firstVideo.gcsUri ?? firstVideo.bytesBase64Encoded {
-                        
+                              let firstVideo = videos.first,
+                              let base64Data = firstVideo.bytesBase64Encoded {
                         if let existingVideo = AppStateManager.shared.generatedVideos.first(where: { $0.id == pendingVideoId }) {
-                            let thumbnailData = await ThumbnailGenerator.generateThumbnail(from: videoUrl)
-                            
-                            let completedVideo = GeneratedVideo(
-                                id: existingVideo.id,
-                                date: existingVideo.date,
-                                videoURL: videoUrl,
-                                category: category,
-                                status: .completed,
-                                prompt: self.appState.promptText,
-                                thumbnailData: thumbnailData
-                            )
-                            
-                            await MainActor.run {
-                                AppStateManager.shared.updateGeneratedVideo(completedVideo)
-                                self.completedVideo = completedVideo
+                            let filename = "\(existingVideo.id.uuidString).mp4"
+                            let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename)
+
+                            if let videoData = Data(base64Encoded: base64Data) {
+                                // Save the video file first
+                                try? videoData.write(to: fileURL)
                                 
-                                _ = self.subscriptionManager.useCredits(creditsRequired)
-                                
-                                self.showingQueuePopup = false
-                                self.showingVideoDetail = true
+                                // Generate thumbnail from the saved video file
+                                let thumbnailData = await ThumbnailGenerator.generateThumbnail(fromLocalFile: fileURL)
+
+                                let completedVideo = GeneratedVideo(
+                                    id: existingVideo.id,
+                                    date: existingVideo.date,
+                                    videoFilePath: fileURL.path,
+                                    category: category,
+                                    status: .completed,
+                                    prompt: self.appState.promptText,
+                                    thumbnailData: thumbnailData
+                                )
+
+                                await MainActor.run {
+                                    AppStateManager.shared.updateGeneratedVideo(completedVideo)
+                                    self.completedVideo = completedVideo
+                                    _ = self.subscriptionManager.useCredits(creditsRequired)
+                                    self.showingQueuePopup = false
+                                    self.showingVideoDetail = true
+                                }
                             }
                         }
                     } else {
@@ -545,7 +539,7 @@ struct TextToVideoScreen: View {
                             let updatedVideo = GeneratedVideo(
                                 id: existingVideo.id,
                                 date: existingVideo.date,
-                                videoURL: nil,
+                                videoFilePath: nil,
                                 category: category,
                                 status: .failed,
                                 prompt: self.appState.promptText,
@@ -559,7 +553,6 @@ struct TextToVideoScreen: View {
                         }
                     }
 
-                    
                     return
                 }
                 
@@ -586,7 +579,7 @@ struct TextToVideoScreen: View {
                         let updatedVideo = GeneratedVideo(
                             id: existingVideo.id,
                             date: existingVideo.date,
-                            videoURL: nil,
+                            videoFilePath: nil,
                             category: category,
                             status: .failed,
                             prompt: self.appState.promptText,
@@ -613,7 +606,7 @@ struct TextToVideoScreen: View {
                 let updatedVideo = GeneratedVideo(
                     id: existingVideo.id,
                     date: existingVideo.date,
-                    videoURL: nil,
+                    videoFilePath: nil,
                     category: category,
                     status: .failed,
                     prompt: self.appState.promptText,

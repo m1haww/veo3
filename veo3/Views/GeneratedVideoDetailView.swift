@@ -72,34 +72,21 @@ struct GeneratedVideoDetailView: View {
                 .padding()
                 .padding(.top)
                 
-                // Video player or placeholder
                 ZStack {
-                    if video.status == .completed, let videoURL = video.videoURL {
-                        let publicURL = VideoURLHelper.convertGCSToPublicURL(videoURL)
-                        if let url = URL(string: publicURL) {
-                            VideoPlayer(player: player)
-                                .onAppear {
-                                    player = AVPlayer(url: url)
-                                    player?.play()
-                                    isPlaying = true
-                                    
-                                    // Loop the video
-                                    NotificationCenter.default.addObserver(
-                                        forName: .AVPlayerItemDidPlayToEndTime,
-                                        object: player?.currentItem,
-                                        queue: .main
-                                    ) { _ in
-                                        player?.seek(to: .zero)
-                                        player?.play()
-                                    }
-                                }
-                                .onDisappear {
-                                    player?.pause()
-                                    player = nil
-                                }
-                        }
+                    if video.status == .completed, let videoFilePath = video.videoFilePath {
+                        let url = URL(fileURLWithPath: videoFilePath)
+                        VideoPlayer(player: player)
+                            .onAppear {
+                                print("Playing video from local path: \(url.path)")
+                                player = AVPlayer(url: url)
+                                player?.play()
+                                isPlaying = true
+                            }
+                            .onDisappear {
+                                player?.pause()
+                                player = nil
+                            }
                     } else if video.status == .pending {
-                        // Pending state
                         VStack(spacing: 20) {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle(tint: .purple))
@@ -251,11 +238,9 @@ struct GeneratedVideoDetailView: View {
             Text(saveAlertMessage)
         }
         .sheet(isPresented: $showShareSheet) {
-            if let videoURL = video.videoURL {
-                let publicURL = VideoURLHelper.convertGCSToPublicURL(videoURL)
-                if let url = URL(string: publicURL) {
-                    ShareSheet(items: [url])
-                }
+            if let videoFilePath = video.videoFilePath {
+                let url = URL(fileURLWithPath: videoFilePath)
+                ShareSheet(items: [url])
             }
         }
     }
@@ -275,10 +260,9 @@ struct GeneratedVideoDetailView: View {
     }
     
     private func saveToPhotos() {
-        guard let videoURL = video.videoURL else { return }
+        guard let videoFilePath = video.videoFilePath else { return }
         
-        let publicURL = VideoURLHelper.convertGCSToPublicURL(videoURL)
-        guard let url = URL(string: publicURL) else { return }
+        let url = URL(fileURLWithPath: videoFilePath)
         
         isSavingToPhotos = true
         
@@ -287,7 +271,7 @@ struct GeneratedVideoDetailView: View {
             DispatchQueue.main.async {
                 switch status {
                 case .authorized:
-                    self.downloadAndSaveVideo(from: url)
+                    self.saveLocalVideoToPhotos(from: url)
                 case .denied, .restricted:
                     self.isSavingToPhotos = false
                     self.saveAlertMessage = "Photo library access denied. Please enable access in Settings."
@@ -295,7 +279,7 @@ struct GeneratedVideoDetailView: View {
                 case .notDetermined:
                     self.isSavingToPhotos = false
                 case .limited:
-                    self.downloadAndSaveVideo(from: url)
+                    self.saveLocalVideoToPhotos(from: url)
                 @unknown default:
                     self.isSavingToPhotos = false
                 }
@@ -303,56 +287,22 @@ struct GeneratedVideoDetailView: View {
         }
     }
     
-    private func downloadAndSaveVideo(from url: URL) {
-        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let destinationURL = documentsPath.appendingPathComponent("temp_video_\(Date().timeIntervalSince1970).mp4")
-        
-        // Download the video
-        let downloadTask = URLSession.shared.downloadTask(with: url) { location, response, error in
-            guard let location = location, error == nil else {
-                DispatchQueue.main.async {
-                    self.isSavingToPhotos = false
-                    self.saveAlertMessage = "Failed to download video. Please check your internet connection."
-                    self.showSaveAlert = true
-                }
-                return
-            }
-            
-            do {
-                // Move the downloaded file to a temporary location
-                if FileManager.default.fileExists(atPath: destinationURL.path) {
-                    try FileManager.default.removeItem(at: destinationURL)
-                }
-                try FileManager.default.moveItem(at: location, to: destinationURL)
+    private func saveLocalVideoToPhotos(from url: URL) {
+        // Save local video file to photo library
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+        }) { success, error in
+            DispatchQueue.main.async {
+                self.isSavingToPhotos = false
                 
-                // Save to photo library
-                PHPhotoLibrary.shared().performChanges({
-                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: destinationURL)
-                }) { success, error in
-                    DispatchQueue.main.async {
-                        self.isSavingToPhotos = false
-                        
-                        // Clean up temporary file
-                        try? FileManager.default.removeItem(at: destinationURL)
-                        
-                        if success {
-                            self.saveAlertMessage = "Video saved to Photos successfully!"
-                        } else {
-                            self.saveAlertMessage = "Failed to save video: \(error?.localizedDescription ?? "Unknown error")"
-                        }
-                        self.showSaveAlert = true
-                    }
+                if success {
+                    self.saveAlertMessage = "Video saved to Photos successfully!"
+                } else {
+                    self.saveAlertMessage = "Failed to save video: \(error?.localizedDescription ?? "Unknown error")"
                 }
-            } catch {
-                DispatchQueue.main.async {
-                    self.isSavingToPhotos = false
-                    self.saveAlertMessage = "Failed to save video: \(error.localizedDescription)"
-                    self.showSaveAlert = true
-                }
+                self.showSaveAlert = true
             }
         }
-        
-        downloadTask.resume()
     }
 }
 

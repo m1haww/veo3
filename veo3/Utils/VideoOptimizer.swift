@@ -78,7 +78,7 @@ extension VideoOptimizer {
             return AVPlayer(url: destinationURL)
         }
         
-        URLSession.shared.downloadTask(with: url) { tempURL, _, error in
+        NetworkConfiguration.safeSession().downloadTask(with: url) { tempURL, _, error in
             guard let tempURL = tempURL, error == nil else { return }
             
             try? FileManager.default.moveItem(at: tempURL, to: destinationURL)

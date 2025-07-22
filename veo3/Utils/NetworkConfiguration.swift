@@ -2,9 +2,24 @@ import Foundation
 import AVFoundation
 
 struct NetworkConfiguration {
+    /// Creates a safe URLSession for iOS 18.4+ compatibility
+    static func safeSession(with config: URLSessionConfiguration? = nil) -> URLSession {
+        if #available(iOS 18.4, *) {
+            let configuration = config ?? URLSessionConfiguration.ephemeral
+            return URLSession(configuration: configuration)
+        } else {
+            let configuration = config ?? URLSessionConfiguration.default
+            return URLSession(configuration: configuration)
+        }
+    }
     /// Creates a URL session configuration optimized for video streaming
     static func videoStreamingConfiguration() -> URLSessionConfiguration {
-        let config = URLSessionConfiguration.default
+        let config: URLSessionConfiguration
+        if #available(iOS 18.4, *) {
+            config = URLSessionConfiguration.ephemeral
+        } else {
+            config = URLSessionConfiguration.default
+        }
         
         // Increase timeouts for video streaming
         config.timeoutIntervalForRequest = 60

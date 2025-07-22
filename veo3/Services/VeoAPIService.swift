@@ -14,20 +14,14 @@ final class VeoAPIService {
         enhancePrompt: Bool = true,
         generateAudio: Bool = true,
         sampleCount: Int = 1,
-        seed: UInt32? = nil,
-        storageUri: String? = nil
+        seed: UInt32? = nil
     ) async throws -> String {
-        // Use the base storage URI - API will create its own folder structure
-        let fullStorageUri = storageUri ?? "gs://veo3-videos-bucket/videos"
-        
-        // Use backend service for text-only generation
         return try await BackendService.shared.generateVideo(
             image: nil,
             prompt: prompt,
             aspectRatio: aspectRatio,
             duration: durationSeconds,
-            generateAudio: generateAudio,
-            storageUri: fullStorageUri
+            generateAudio: generateAudio
         )
     }
     
@@ -40,19 +34,14 @@ final class VeoAPIService {
         enhancePrompt: Bool = true,
         generateAudio: Bool = true,
         sampleCount: Int = 1,
-        seed: UInt32? = nil,
-        storageUri: String? = nil
+        seed: UInt32? = nil
     ) async throws -> String {
-        // Use the base storage URI - API will create its own folder structure
-        let fullStorageUri = storageUri ?? "gs://veo3-videos-bucket/videos"
-        
         return try await BackendService.shared.generateVideo(
             image: image,
             prompt: prompt,
             aspectRatio: aspectRatio,
             duration: durationSeconds,
-            generateAudio: generateAudio,
-            storageUri: fullStorageUri
+            generateAudio: generateAudio
         )
     }
     
