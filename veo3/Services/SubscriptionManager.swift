@@ -26,11 +26,10 @@ final class SubscriptionManager: ObservableObject {
     }
     
     private func checkSubscriptionStatus() {
-//        Purchases.shared.getCustomerInfo { (customerInfo, error) in
-//            self.isSubscribed = customerInfo?.entitlements.all["Pro"]?.isActive == true
-//        }
-//        self.showOnboarding = !UserDefaults.standard.bool(forKey: "onboardingCompleted")
-        self.isSubscribed = true
+        Purchases.shared.getCustomerInfo { (customerInfo, error) in
+            self.isSubscribed = customerInfo?.entitlements.all["Pro"]?.isActive == true
+        }
+        self.showOnboarding = !UserDefaults.standard.bool(forKey: "onboardingCompleted")
     }
     
     func restorePurchases(completion: @escaping (Bool) -> Void) {

@@ -12,10 +12,6 @@ struct GoogleCloudConfig {
         case veo3Generate = "veo-3.0-generate-preview"
         case veo3Fast = "veo-3.0-fast-generate-preview"
     }
-    
-    // Temporary token for testing - update this manually for now
-    // Run: gcloud auth print-access-token
-    static let accessToken = "YOUR_NEW_ACCESS_TOKEN_HERE"
 }
 
 struct VeoError: LocalizedError {

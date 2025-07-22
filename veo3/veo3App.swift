@@ -46,7 +46,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     private func configureAppearance() {
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = UIColor.black // Pure black background
+        tabBarAppearance.backgroundColor = UIColor.black
         
         tabBarAppearance.stackedLayoutAppearance.selected.iconColor = UIColor.white
         tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [
