@@ -267,28 +267,30 @@ struct EmptyGalleryView: View {
                         .multilineTextAlignment(.center)
                 }
                 
-                Button(action: {
-                    appState.showPaywall = true
-                }) {
-                    HStack(spacing: 12) {
-                        Image(systemName: "crown.fill")
-                            .font(.system(size: 20))
-                        
-                        Text("Get Pro")
-                            .font(.system(size: 18, weight: .semibold))
-                    }
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 32)
-                    .padding(.vertical, 16)
-                    .background(
-                        LinearGradient(
-                            colors: [Color.purple, Color.pink],
-                            startPoint: .leading,
-                            endPoint: .trailing
+                if !SubscriptionManager.shared.isSubscribed {
+                    Button(action: {
+                        appState.showPaywall = true
+                    }) {
+                        HStack(spacing: 12) {
+                            Image(systemName: "crown.fill")
+                                .font(.system(size: 20))
+                            
+                            Text("Get Pro")
+                                .font(.system(size: 18, weight: .semibold))
+                        }
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 32)
+                        .padding(.vertical, 16)
+                        .background(
+                            LinearGradient(
+                                colors: [Color.purple, Color.pink],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
                         )
-                    )
-                    .cornerRadius(30)
-                    .shadow(color: Color.purple.opacity(0.5), radius: 20, x: 0, y: 10)
+                        .cornerRadius(30)
+                        .shadow(color: Color.purple.opacity(0.5), radius: 20, x: 0, y: 10)
+                    }
                 }
                 
                 VStack(spacing: 16) {

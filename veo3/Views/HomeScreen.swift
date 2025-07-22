@@ -87,7 +87,11 @@ struct HomeScreen: View {
                                     
                                     Spacer()
                                     
-                                    Button(action: { appState.showPaywall = true }) {
+                                    Button(action: {
+                                        if !subscriptionManager.isSubscribed {
+                                            appState.showPaywall = true
+                                        }
+                                    }) {
                                         HStack(spacing: 6) {
                                             Image(systemName: "film")
                                                 .font(.system(size: 18))

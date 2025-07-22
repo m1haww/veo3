@@ -33,16 +33,14 @@ struct ContentView: View {
                     }
                     .tag(0)
                 
-                Color.clear
+                Color.black
                         .background(
                             GeometryReader { _ in
                                 Color.clear
-                                    .preference(key: SizeClassPreferenceKey.self,
-                                                value: Environment(\.horizontalSizeClass).wrappedValue)
+                                    .environment(\.horizontalSizeClass, cachedSizeClass)
                             }
                         )
-                        .tabItem {}
-                    .tag(2)
+                    .disabled(true)
                 
                 GalleryScreen()
                     .environment(\.horizontalSizeClass, cachedSizeClass)
