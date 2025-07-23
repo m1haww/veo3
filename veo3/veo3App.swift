@@ -29,7 +29,20 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         SubscriptionManager.shared.loadConfig()
         configureAppearance()
         
+        Task {
+            await loadBaseURL()
+        }
+        
         return true
+    }
+    
+    private func loadBaseURL() async {
+        do {
+            let baseUrl = try await BackendService.shared.fetchBaseURL()
+            print("[AppDelegate] Base URL loaded: \(baseUrl)")
+        } catch {
+            print("[AppDelegate] Failed to load base URL: \(error.localizedDescription)")
+        }
     }
     
     private func configureAppearance() {

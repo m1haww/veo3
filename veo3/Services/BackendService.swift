@@ -4,7 +4,8 @@ import UIKit
 final class BackendService {
     static let shared = BackendService()
     
-    private let baseURL = "https://veo3-backend-118847640969.europe-west1.run.app"
+    private var baseURL = ""
+    
     private lazy var session: URLSession = {
         return safeSession()
     }()
@@ -29,6 +30,43 @@ final class BackendService {
     }
     
     private init() {}
+    
+    func fetchBaseURL() async throws -> String {
+        let url = URL(string: "https://ai-assistant-backend-164860087792.europe-west1.run.app/api/config/base-url")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let (data, response) = try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw BackendError.serverError("Invalid response type")
+        }
+        
+        if httpResponse.statusCode != 200 {
+            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+            let errorMessage = json?["error"] as? String ?? "Failed to fetch base URL"
+            throw BackendError.serverError(errorMessage)
+        }
+        
+        let json: [String: Any]
+        do {
+            guard let parsedJson = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                throw BackendError.invalidResponse
+            }
+            json = parsedJson
+        } catch {
+            throw BackendError.serverError("Cannot parse base URL response: \(error.localizedDescription)")
+        }
+        
+        guard let baseUrlFromServer = json["base_url"] as? String else {
+            throw BackendError.invalidResponse
+        }
+        
+        baseURL = baseUrlFromServer
+        return baseUrlFromServer
+    }
     
     func generateVideo(
         image: UIImage? = nil,
@@ -81,10 +119,6 @@ final class BackendService {
         } catch {
             print("[BackendService] Network error: \(error)")
             throw error
-        }
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw BackendError.serverError("Invalid response type")
         }
         
         let json: [String: Any]

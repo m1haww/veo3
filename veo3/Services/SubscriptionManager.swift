@@ -98,9 +98,9 @@ final class SubscriptionManager: ObservableObject {
     private func getCreditsForProduct(_ productId: String) -> Int {
         switch productId {
         case "com.vemix.weekly":
-            return 15
+            return 10
         case "com.vemix.yearly":
-            return 100
+            return 60
         default:
             return 0
         }

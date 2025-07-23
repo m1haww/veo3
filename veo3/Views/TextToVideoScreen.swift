@@ -475,8 +475,6 @@ struct TextToVideoScreen: View {
                         }
                     }
                     
-                    try await Task.sleep(nanoseconds: 500_000_000)
-                    
                     if let error = status.error {
                         self.showingQueuePopup = false
                         self.generationProgress = 0.0
@@ -505,10 +503,8 @@ struct TextToVideoScreen: View {
                             let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename)
 
                             if let videoData = Data(base64Encoded: base64Data) {
-                                // Save the video file first
                                 try? videoData.write(to: fileURL)
                                 
-                                // Generate thumbnail from the saved video file
                                 let thumbnailData = await ThumbnailGenerator.generateThumbnail(fromLocalFile: fileURL)
 
                                 let completedVideo = GeneratedVideo(

@@ -1,4 +1,5 @@
 import SwiftUI
+import StoreKit
 
 struct OnboardingPage {
     let title: String
@@ -10,6 +11,7 @@ struct OnboardingPage {
 
 struct OnboardingView: View {
     @State private var currentPage = 0
+    @Environment(\.requestReview) var requestReview
     
     @ObservedObject private var subscriptionManager = SubscriptionManager.shared
     @ObservedObject private var appState = AppStateManager.shared
@@ -114,6 +116,7 @@ struct OnboardingView: View {
                                 currentPage += 1
                             }
                         } else {
+                            requestReview()
                             subscriptionManager.completeOnboarding()
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 appState.showPaywall = true
