@@ -1,7 +1,7 @@
 import Foundation
 
-final class Conts {
-    static let shared = Conts()
+final class Consts {
+    static let shared = Consts()
     
     private init() {}
     

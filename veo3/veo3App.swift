@@ -22,7 +22,7 @@ struct veo3App: App {
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        Purchases.configure(withAPIKey: Conts.shared.revenueCatApiKey, appUserID: UserService.shared.appUserId)
+        Purchases.configure(withAPIKey: Consts.shared.revenueCatApiKey, appUserID: UserService.shared.appUserId)
         
         SubscriptionManager.shared.loadConfig()
         configureAppearance()

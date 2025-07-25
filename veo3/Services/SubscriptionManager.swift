@@ -69,7 +69,7 @@ final class SubscriptionManager: ObservableObject {
         return credits >= amount
     }
     
-    private func registerUser(credits: Int) async {
+    func registerUser(credits: Int) async {
         do {
             let response = try await UserService.shared.registerUser(initialCredits: credits)
             print("User registered successfully.")
