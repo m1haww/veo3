@@ -56,9 +56,17 @@ struct SettingsView: View {
                                         if let activeSubscription = customerInfo.activeSubscriptions.first {
                                             let creditsToAdd = getCreditsForProduct(activeSubscription)
                                             subscriptionManager.addCredits(creditsToAdd)
+                                            
+                                            Task {
+                                                await subscriptionManager.registerUser(credits: creditsToAdd)
+                                            }
                                         } else if let recentPurchase = customerInfo.allPurchasedProductIdentifiers.first {
                                             let creditsToAdd = getCreditsForProduct(recentPurchase)
                                             subscriptionManager.addCredits(creditsToAdd)
+                                            
+                                            Task {
+                                                await subscriptionManager.registerUser(credits: creditsToAdd)
+                                            }
                                         }
                                     }
                                 }
@@ -88,7 +96,7 @@ struct SettingsView: View {
                         
                         SettingsInfoRow(
                             title: "Version",
-                            value: "1.0.11",
+                            value: "1.0.12",
                             icon: "app.badge",
                             iconColor: .cyan
                         )
@@ -97,7 +105,7 @@ struct SettingsView: View {
                             title: "Privacy Policy",
                             icon: "lock.shield.fill",
                             iconColor: .purple,
-                            action: { 
+                            action: {
                                 if let url = URL(string: "https://docs.google.com/document/d/1QP8Xk3Oh9QYw1ZD6M97dkeo63aA77Sppii3EC63PGZk/edit?usp=sharing") {
                                     UIApplication.shared.open(url)
                                 }
@@ -108,7 +116,7 @@ struct SettingsView: View {
                             title: "Terms of Service",
                             icon: "doc.text.fill",
                             iconColor: .blue,
-                            action: { 
+                            action: {
                                 if let url = URL(string: "https://docs.google.com/document/d/1ZrNdg4W3Ug4BhokVc1BEgEAVmzWMykdalOpQvaZmm0A/edit?usp=sharing") {
                                     UIApplication.shared.open(url)
                                 }
@@ -119,7 +127,7 @@ struct SettingsView: View {
                             title: "Contact Support",
                             icon: "envelope.fill",
                             iconColor: .green,
-                            action: { 
+                            action: {
                                 if let url = URL(string: "mailto:vekidotunize81459@gmail.com") {
                                     UIApplication.shared.open(url)
                                 }
@@ -157,10 +165,10 @@ struct SettingsView: View {
     
     private func getCreditsForProduct(_ productId: String) -> Int {
         switch productId {
-        case "veo3.yearly.com":
+        case "com.vemix.weekly":
             return 10
-        case "veo3.monthly.com":
-            return 50
+        case "com.vemix.yearly":
+            return 60
         default:
             return 0
         }

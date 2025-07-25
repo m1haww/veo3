@@ -520,7 +520,7 @@ struct TextToVideoScreen: View {
                                 await MainActor.run {
                                     AppStateManager.shared.updateGeneratedVideo(completedVideo)
                                     self.completedVideo = completedVideo
-                                    _ = self.subscriptionManager.useCredits(creditsRequired)
+                                    self.subscriptionManager.useCredits(creditsRequired)
                                     self.showingQueuePopup = false
                                     self.showingVideoDetail = true
                                 }

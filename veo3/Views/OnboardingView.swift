@@ -116,11 +116,7 @@ struct OnboardingView: View {
                                 currentPage += 1
                             }
                         } else {
-                            requestReview()
-                            subscriptionManager.completeOnboarding()
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                appState.showPaywall = true
-                            }
+                            complete()
                         }
                     }) {
                         Text(currentPage == onboardingPages.count - 1 ? "Get Started" : "Continue")
@@ -144,6 +140,14 @@ struct OnboardingView: View {
                 }
                 .background(Color.black)
             }
+        }
+    }
+    
+    private func complete() {
+        requestReview()
+        subscriptionManager.completeOnboarding()
+        withAnimation(.easeInOut(duration: 0.3)) {
+            appState.showPaywall = true
         }
     }
 }

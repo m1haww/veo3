@@ -22,27 +22,18 @@ struct veo3App: App {
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        
-        Purchases.logLevel = .info
-        Purchases.configure(withAPIKey: Conts.shared.revenueCatApiKey)
+        Purchases.configure(withAPIKey: Conts.shared.revenueCatApiKey, appUserID: UserService.shared.appUserId)
         
         SubscriptionManager.shared.loadConfig()
         configureAppearance()
         
         Task {
-            await loadBaseURL()
+            await UserService.shared.loadBaseURL()
+            let response = try? await UserService.shared.fetchCredits()
+            SubscriptionManager.shared.credits = response?.credits ?? 0
         }
         
         return true
-    }
-    
-    private func loadBaseURL() async {
-        do {
-            let baseUrl = try await BackendService.shared.fetchBaseURL()
-            print("[AppDelegate] Base URL loaded: \(baseUrl)")
-        } catch {
-            print("[AppDelegate] Failed to load base URL: \(error.localizedDescription)")
-        }
     }
     
     private func configureAppearance() {
@@ -62,18 +53,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             .font: UIFont.systemFont(ofSize: 10)
         ]
         
-        // Remove tab bar border
         tabBarAppearance.shadowImage = UIImage()
         tabBarAppearance.shadowColor = .clear
         
-        // Apply appearance
         UITabBar.appearance().standardAppearance = tabBarAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         if #available(iOS 15.0, *) {
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         }
         
-        // Navigation Bar Appearance
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.backgroundColor = UIColor.black

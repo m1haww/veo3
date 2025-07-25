@@ -71,7 +71,6 @@ struct ContentView: View {
                 Spacer()
                 
                 Button(action: {
-                    // Add haptic feedback
                     let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                     impactFeedback.impactOccurred()
                     

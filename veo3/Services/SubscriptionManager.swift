@@ -10,14 +10,9 @@ final class SubscriptionManager: ObservableObject {
     @Published var credits: Int = 0
     @Published var showOnboarding = false
     
-    private let creditsKey = "UserCredits"
-    private let subscriptionStatusKey = "SubscriptionStatus"
-    private let userDefaults = UserDefaults.standard
-    
     private init() {}
     
     func loadConfig() {
-        loadCredits()
         checkSubscriptionStatus()
     }
     
@@ -55,28 +50,33 @@ final class SubscriptionManager: ObservableObject {
     
     func addCredits(_ amount: Int) {
         credits += amount
-        saveCredits()
     }
     
-    func useCredits(_ amount: Int) -> Bool {
-        if credits >= amount {
-            credits -= amount
-            saveCredits()
-            return true
+    func useCredits(_ amount: Int) {
+        credits -= amount
+        
+        Task {
+            do {
+                let response = try await UserService.shared.useCredits(amount)
+                print(response.remaining_credits)
+            } catch {
+                print("Error using credits: \(error)")
+            }
         }
-        return false
     }
     
     func hasCredits(_ amount: Int) -> Bool {
         return credits >= amount
     }
     
-    private func saveCredits() {
-        userDefaults.set(credits, forKey: creditsKey)
-    }
-    
-    private func loadCredits() {
-        credits = userDefaults.integer(forKey: creditsKey)
+    private func registerUser(credits: Int) async {
+        do {
+            let response = try await UserService.shared.registerUser(initialCredits: credits)
+            print("User registered successfully.")
+            print(response.credits)
+        } catch {
+            print("Error registering user: \(error)")
+        }
     }
     
     func updateSubscriptionStatus(_ customerInfo: CustomerInfo) {
@@ -88,9 +88,17 @@ final class SubscriptionManager: ObservableObject {
             if let activeSubscription = customerInfo.activeSubscriptions.first {
                 let creditsToAdd = getCreditsForProduct(activeSubscription)
                 addCredits(creditsToAdd)
+                
+                Task {
+                    await registerUser(credits: creditsToAdd)
+                }
             } else if let recentPurchase = customerInfo.allPurchasedProductIdentifiers.first {
                 let creditsToAdd = getCreditsForProduct(recentPurchase)
                 addCredits(creditsToAdd)
+                
+                Task {
+                    await registerUser(credits: creditsToAdd)
+                }
             }
         }
     }

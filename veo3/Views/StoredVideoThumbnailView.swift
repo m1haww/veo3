@@ -7,12 +7,10 @@ struct StoredVideoThumbnailView: View {
         ZStack {
             if let thumbnailData = video.thumbnailData,
                let uiImage = UIImage(data: thumbnailData) {
-                // Show stored thumbnail
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } else {
-                // Placeholder gradient
                 Rectangle()
                     .fill(
                         LinearGradient(
